@@ -1,0 +1,29 @@
+.button {
+    border: none;
+    cursor: pointer;
+
+    transition: background-color 250ms ease-out;
+}
+
+.outline {
+    color: var(--primary-800);
+    background-color: transparent;
+    border: 1px solid var(--primary-800);
+}
+
+.filled {
+    color: var(--primary-200);
+    background-color: var(--primary-800);
+    border: 1.5px solid var(--primary-800);
+}
+
+.outline:hover {
+    color: var(--primary-200);
+    background-color: var(--primary-800);
+}
+
+.filled:hover {
+    font-weight: bold;
+    color: var(--primary-800);
+    background-color: var(--primary-200);
+}
