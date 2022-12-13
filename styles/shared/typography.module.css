@@ -1,0 +1,24 @@
+.ff-primary,
+.ff-secondary {
+    color: var(--clr-black);
+}
+
+.ff-primary {
+    font-family: var(--ff-primary);
+}
+
+.ff-secondary {
+    font-family: var(--ff-secondary);
+}
+
+.color-white {
+    color: var(--clr-white);
+}
+
+.color-grey {
+    color: var(--clr-grey);
+}
+
+.color-black {
+    color: var(--clr-black);
+}

@@ -1,0 +1,11 @@
+.brown {
+    background-color: var(--primary-800);
+}
+
+.lightbrown {
+    background-color: var(--primary-600);
+}
+
+.white {
+    background-color: var(--primary-200);
+}

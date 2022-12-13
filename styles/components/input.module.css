@@ -1,0 +1,60 @@
+.input {
+    border: none;
+    text-align: center;
+    border-radius: 0.25em;
+    padding-block: 0.45em;
+    transition: box-shadow 250ms ease-out;
+    /* background-color: var(--primary-200); */
+}
+
+.input::placeholder {
+    font-family: var(--ff-secondary);
+}
+
+.input:focus {
+    outline: none;
+    box-shadow: 0 0 0.125em 0.2em var(--primary-600);
+}
+
+.input[readonly] {
+    background-color: var(--clr-grey);
+    color: var(--primary-200);
+}
+
+.error {
+    box-shadow: 0 0 0.125em 0.25em #f339;
+    background-color: #e553;
+    animation: shakeOnInvalid 350ms ease-out forwards;
+    transition: box-shadow 0ms;
+}
+
+@keyframes shakeOnInvalid {
+    25% {
+        transform: translateX(-10%);
+    }
+
+    50% {
+        transform: translateX(10%);
+    }
+
+    75% {
+        transform: translateX(-10%);
+    }
+}
+
+.password {
+    position: relative;
+}
+
+.password .input {
+    padding-right: 4ch;
+}
+
+.password .toggle {
+    position: absolute;
+    inset-block: 5px;
+    right: 0;
+    padding-inline: 0.25em;
+    cursor: pointer;
+    border-left: 2px solid var(--primary-600);
+}

@@ -1,89 +1,96 @@
-// import { ProtectContent } from '../../Components/ProtectContent';
-import { Title } from '../components/shared/typography'
-import { Layout } from '../components/layout'
-
-export default function Home() {
-  const { logout, user } = useContext(EotContext)
-  const { auth, role, username } = user
-  return (
-    <Layout>
-      <Flex justify='center' align='center' wrap className='text-center' style={{ height: '95vw' }}>
-        <Title size='3xl' weight='bold'>Bienvenido a EatOnTime</Title>
-      </Flex>
-    </Layout>
-  )
-}
-
-// Resources
-import Login from '../../Images/login.png';
-import MenuImage from '../../Images/menu.png';
-import OrdersImage from '../../Images/orders.png';
-import AboutUsImage from '../../Images/aboutus.png';
-import DashboardImage from '../../Images/dashboard.svg';
-import EmployeesImage from '../../Images/empleados.png';
-
-// Styles
-import styles from './home.module.css';
-import { useContext } from 'react';
-import { EotContext } from 'utils';
-import { Flex } from 'components/shared/containers'
+import { useContext } from 'react'
+import { AuthContext, GlobalSettingsContext } from 'utils'
+import styles from 'styles/pages/home.module.css'
 
 // Components
+import Link from 'next/link'
+import { ProtectedContent } from 'components'
+import { Title, Flex, Text, Grid } from 'components/shared'
+import Image from 'next/image'
 
-// export const Home = () => {
-// Hooks
-// const { logout, userName, userRole, authenticated } = useAuth();
+export default function Home() {
+  const { logout, authenticated, user: { username, role: { name } } } = useContext(AuthContext)
+  const { updateIsLoading } = useContext(GlobalSettingsContext)
 
-// document.title = `EatOnTime`;
+  const navigate = (e: MouseEvent) => {
+    const { id, tagName } = e.target as HTMLDivElement
+    if (id !== 'navigate' && tagName !== 'H1')
+      updateIsLoading(true)
+  }
 
-// Render section
-/* 
-return (
-  <main className={`flex justify-content-center align-items-center flex-wrap text-center ${styles.home}`}>
-    <Transition duration='750ms' />
-    <h1 className={`${styles.title} ff-main pad-2`}></h1>
+  return (
+    <>
+      <Grid placeItems='center' p={4} style={{ height: '95vh', overflowY: 'auto' }}>
+        <Flex style={{ paddingBlockEnd: '1.5em' }} id='navigate' justify='center' gap={5} align='center' wrap className='text-center' onClick={navigate}>
+          <Title my={2} size='4xl' weight='bold' className='w-full'>Bienvenido a EatOnTime</Title>
 
-    <Link className={`${styles.link} gap-row-2 flex flex-column ff-alter pad-4`} to='/dashboard'>
-      <img className='home__link-image' src={DashboardImage} alt="eat on time tables dashboard" />
-      <p className="home__link-text">Dashboard</p>
-    </Link>
+          <Link className={styles.link} href='/tables'>
+            <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+              <Image width={200} height={200} src='/img/tables.png' alt="eat on time tables dashboard" />
+              <Text>Mesas</Text>
+            </Flex>
+          </Link>
 
-    <Link className={`${styles.link} gap-row-2 flex flex-column ff-alter pad-4`} to='/menu'>
-      <img className='home__link-image' src={MenuImage} alt="eat on time menu" />
-      <p className="home__link-text">Menu</p>
-    </Link>
+          <Link className={styles.link} href='/menu'>
+            <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+              <Image width={200} height={200} src='/img/menu.png' alt="eat on time menu" />
+              <Text>Menu</Text>
+            </Flex>
+          </Link>
 
-    <ProtectContent requiredRole={'ADMIN'}>
-      <Link className={`${styles.link} gap-row-2 flex flex-column ff-alter pad-4`} to='/employees'>
-        <img src={EmployeesImage} alt="" className="home__link-image" />
-        <p className="home__link-text">Empleados</p>
-      </Link>
-    </ProtectContent>
+          <ProtectedContent adminOnly>
+            <Link className={styles.link} href='/employees'>
+              <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+                <Image width={200} height={200} src='/img/employees.png' alt="" />
+                <Text>Empleados</Text>
+              </Flex>
+            </Link>
+          </ProtectedContent>
 
-    <ProtectContent requiredRole={['ADMIN', 'CHEF']}>
-      <Link className={`${styles.link} gap-row-2 flex flex-column ff-alter pad-4`} to='/orders'>
-        <img src={OrdersImage} alt="" className="home__link-image" />
-        <p className="home__link-text">Ordenes</p>
-      </Link>
-    </ProtectContent>
+          <ProtectedContent staffOnly>
+            <Link className={styles.link} href='/orders'>
+              <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+                <Image width={200} height={200} src='/img/orders.png' alt="" />
+                <Text>Ordenes</Text>
+              </Flex>
+            </Link>
+          </ProtectedContent>
 
-    <Link className={`${styles.link} gap-row-2 flex flex-column ff-alter pad-4`} to='/about'>
-      <img className='home__link-image' src={AboutUsImage} alt="eat on time about" />
-      <p className="home__link-text">Desarrolladores</p>
-    </Link>
+          <ProtectedContent staffOnly>
+            <Link className={styles.link} href='/activities'>
+              <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+                <Image width={200} height={200} src='/img/activities.png' alt="" />
+                <Text>Actividades en curso</Text>
+              </Flex>
+            </Link>
+          </ProtectedContent>
 
-    <Link className={styles.last_link} to='/'></Link>
-    {
-      authenticated ?
-        <p className={styles.welcome_message}
-          onClick={logout}>
-          {`Welcome ${userName} (${userRole}) `}
-        </p>
-        :
-        <Link className={`${styles.flotant}`} to='/login' replace={false} >
-          <img className={`${styles.flotant_img}`} src={Login} alt="eat on time login" />
-          <p className="ff-alter">Login</p>
-        </Link>
-    }
-  </main>
-) */
+          <ProtectedContent adminOnly>
+            <Link className={styles.link} href='/records'>
+              <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+                <Image width={200} height={200} src='/img/records.png' alt="" />
+                <Text>Historial</Text>
+              </Flex>
+            </Link>
+          </ProtectedContent>
+
+          <Link className={styles.link} href='/accessibility'>
+            <Flex direction='col' rounded='sm' align='center' gapY={2} p={4} m={2} textAlign='center'>
+              <Image width={200} height={200} src='/img/accessibility.png' alt="" />
+              <Text>Accesibilidad</Text>
+            </Flex>
+          </Link>
+        </Flex>
+        {
+          authenticated ?
+            <Text align='center' size='2xl' font='primary' className={styles.welcome_message} onClick={logout}>{`Welcome ${username} (${name}) `}</Text>
+            :
+            <Link className={styles.flotant} href='/login' replace={false} >
+              <Image width={50} height={50} className='w-full aspect-square' src='/img/login.png' alt="eat on time login" />
+              <Text font='secondary'>Login</Text>
+            </Link>
+        }
+      </Grid>
+    </>
+  )
+}

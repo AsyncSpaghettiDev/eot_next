@@ -1,40 +1,58 @@
+import { Transition } from "components/transition"
+import { useRouter } from "next/router"
+import { createContext, useEffect } from "react"
+
+export const GlobalSettingsContext = createContext<SettingsContext>(null!)
+
 import { ReactNode, useState } from "react"
-import { EotContext } from '.'
+import styles from 'styles/components/transition.module.css'
 
 interface Props {
     children: ReactNode
 }
 
-export const GlobalContext = ({ children }: Props) => {
-    const [loading, setLoading] = useState(false)
-    const [authenticated, setAuthenticated] = useState<boolean>(false)
-    const [user, setUser] = useState<User>({
-        username: '',
-        role: '',
-        auth: false
-    })
+export const GlobalSettings = ({ children }: Props) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [readScreen, setReadScreen] = useState<boolean>(false)
+    const router = useRouter()
 
-    const showLoading = (state: boolean) => setLoading(state)
+    useEffect(() => {
+        setReadScreen(localStorage.getItem('readScreen') === 'true')
+        const routeChanged = () => updateIsLoading(false)
+        router.events.on('routeChangeComplete', routeChanged)
+        return () => router.events.off('routeChangeComplete', routeChanged)
+    }, [])
 
-    const login = (username: string, password: string) => {
-        console.log(`login: ${username} ${password}`)
+    const updateReadScreen = (value: boolean) => {
+        localStorage.setItem('readScreen', value.toString())
+        setReadScreen(value)
     }
 
-    const logout = () => {
-        console.log(`logout`)
+    const updateIsLoading = (value: boolean) => {
+        if (!value) {
+            document.getElementById('transition')?.classList.add(styles.hide)
+            setTimeout(() => setIsLoading(value), 500)
+        }
+        else
+            setIsLoading(value)
+
     }
 
     const value = {
-        user,
-        authenticated,
-        showLoading,
-        login,
-        logout,
+        isLoading,
+        updateIsLoading,
+        readScreen,
+        updateReadScreen
     }
+
     return <>
-        <EotContext.Provider value={value}>
+        <GlobalSettingsContext.Provider value={value}>
             {children}
-        </EotContext.Provider>
+            {
+                isLoading &&
+                <Transition />
+            }
+        </GlobalSettingsContext.Provider>
     </>
 
 }

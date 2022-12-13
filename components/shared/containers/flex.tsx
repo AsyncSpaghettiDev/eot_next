@@ -1,11 +1,17 @@
-import { ReactNode } from "react"
+import styles from "styles/shared/container.module.css"
+import React, { createElement, ReactNode } from "react"
 
 interface Props {
     children: ReactNode
     wrap?: boolean
-    direction?: "row" | "column"
+    direction?: "row" | "col" | "row-reverse" | "col-reverse"
     justify?: "start" | "end" | "center" | "between" | "around"
     align?: "start" | "end" | "center" | "stretch" | "baseline"
+    textAlign?: "right" | "left" | "center" | "justify"
+    bg?: 'brown' | 'lightbrown' | 'white'
+    id?: string
+
+    as?: 'div' | 'section' | 'article' | 'main' | 'aside' | 'header' | 'footer' | 'nav' | 'figure' | 'figcaption' | 'address' | 'time' | 'mark' | 'blockquote' | 'ol' | 'ul' | 'li' | 'dl' | 'dt' | 'dd' | 'table' | 'caption' | 'thead' | 'tbody' | 'tfoot' | 'tr' | 'th' | 'td' | 'hr' | 'pre' | 'code' | 'em' | 'strong' | 'small' | 's' | 'cite' | 'q' | 'dfn' | 'abbr' | 'ruby' | 'rt' | 'rp' | 'data' | 'time' | 'var' | 'samp' | 'kbd' | 'sub' | 'sup' | 'i' | 'b' | 'u' | 'span' | 'bdi' | 'bdo' | 'br' | 'wbr' | 'ins' | 'del' | 'img' | 'iframe' | 'embed' | 'object' | 'param' | 'video' | 'audio' | 'source' | 'track' | 'canvas' | 'map' | 'area' | 'svg' | 'math' | 'a' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
     p?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
     px?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -16,16 +22,21 @@ interface Props {
     my?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
 
     gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+    gapX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+    gapY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+
+    rounded?: 0 | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 
     className?: string
     style?: React.CSSProperties
-    onClick?: () => void
+    onClick?: (e: MouseEvent) => void
 }
 
-export const Flex = ({ children, className, style, onClick, ...props }: Props) => {
-    const { wrap, direction = 'row', justify, align, p, px, py, m, mx, my, gap } = props
+export const Flex = ({ children, id, className, style, as, bg = 'white', onClick, ...props }: Props) => {
+    const { wrap, direction = 'row', justify, align, p, px, py, m, mx, my, gap, gapX, gapY, rounded, textAlign } = props
     const classes = [
         'flex',
+        styles[bg],
         wrap && 'flex-wrap',
         direction && `flex-${direction}`,
         justify && `justify-${justify}`,
@@ -37,12 +48,12 @@ export const Flex = ({ children, className, style, onClick, ...props }: Props) =
         mx && `mx-${mx}`,
         my && `my-${my}`,
         gap && `gap-${gap}`,
+        gapX && `gap-x-${gapX}`,
+        gapY && `gap-y-${gapY}`,
+        rounded && `rounded-${rounded}`,
+        textAlign && `text-${textAlign}`,
         className
     ].filter(Boolean).join(' ')
 
-    return (
-        <div className={classes} style={style} onClick={onClick}>
-            {children}
-        </div>
-    )
+    return createElement(as || 'div', { className: classes, style, id, onClick }, children)
 }

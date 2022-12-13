@@ -1,0 +1,63 @@
+.transition {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--primary-200);
+    transform: scale(1);
+}
+
+.transition.hide {
+    animation: hide 500ms ease-in forwards;
+}
+
+@keyframes hide {
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.logo {
+    width: clamp(100px, 25%, 250px);
+    aspect-ratio: 1;
+    border-radius: 0.25em;
+    margin-block-end: 0.5em;
+}
+
+.ball_1,
+.ball_2 {
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    animation: show ease-out 1750ms infinite alternate;
+}
+
+@keyframes show {
+    to {
+        opacity: 0.75;
+    }
+}
+
+.ball_1 {
+    bottom: -50px;
+    left: -80px;
+    width: 300px;
+    background-color: #E0D4B7;
+}
+
+.ball_2 {
+    width: 350px;
+    top: -90px;
+    right: -95px;
+    background-color: #AA7F73;
+    animation-delay: 1s;
+}

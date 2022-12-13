@@ -1,37 +1,43 @@
 import Link from "next/link"
 import Router from "next/router"
 import { useContext } from "react"
-import { EotContext } from "utils"
 
+import styles from 'styles/components/header.module.css'
+import { Flex, Grid, Text, Title } from "components/shared"
+import { AuthContext } from "utils"
 interface Props {
-    showUser?: boolean
-    showBack?: boolean
+    showUser: boolean
+    showBack: boolean
 }
 
-export const Header = ({ showBack = true, showUser = true }: Props) => {
+export const Header = ({ showBack, showUser }: Props) => {
     // Hooks
-    const { user: { auth, role, username }, logout } = useContext(EotContext)
+    const { user: { username, role: { name } }, authenticated, logout } = useContext(AuthContext)
 
     // Handlers
     const returnHandler = () => Router.back()
 
     // Render Section
     return (
-        <nav className="navbar__header">
+        <Flex direction="col" as='header' textAlign="center" bg="brown" p={2} className={styles.header}>
             {
                 // In case we dont want back arrow or we are not admin, we display back arrow
                 showBack &&
-                <span className='navbar__back' onClick={returnHandler}> &#5176; </span>
+                <Grid placeItems="center" bg='brown' onClick={returnHandler} className={styles.back} >
+                    <Text color="white" font="primary" size="md"> &#5176; </Text>
+                </Grid>
             }
-            <Link href='/'>
-                <h1 className='navbar-header'>EatOnTime</h1>
-            </Link>
+            <Title align="center" color="white" size="2xl" weight="bold" className={styles.title}>
+                <Link href='/'>
+                    EatOnTime
+                </Link>
+            </Title>
             {
                 // If we have an active session we can logout by clicking in out name
                 // also is conditional render, if we dont want it
-                showUser && auth &&
-                <span className="navbar__logout" onClick={logout}>Welcome {username} ({role}) </span>
+                showUser && authenticated &&
+                <Text color="white" font="primary" size="lg" className={styles.logout} onClick={logout}>Welcome {username} ({name}) </Text>
             }
-        </nav>
+        </Flex >
     )
 }

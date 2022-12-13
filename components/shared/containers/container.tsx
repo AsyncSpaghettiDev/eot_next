@@ -3,8 +3,6 @@ import { createElement, MouseEvent, ReactNode } from "react"
 
 interface Props {
     children: ReactNode
-    justify?: "start" | "end" | "center" | "between" | "around"
-    align?: "start" | "end" | "center" | "stretch" | "baseline"
     textAlign?: "right" | "left" | "center" | "justify"
     bg?: 'brown' | 'lightbrown' | 'white'
     id?: string
@@ -19,54 +17,27 @@ interface Props {
     mx?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
     my?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
 
-    placeItems?: 'start' | 'end' | 'center' | 'stretch' | 'baseline'
-    placeContent?: 'start' | 'end' | 'center' | 'stretch' | 'between' | 'around' | 'evenly'
+    rounded?: 0 | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 
-    gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    gapX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    gapY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
     className?: string
     style?: React.CSSProperties
     onClick?: (e: MouseEvent<HTMLElement>) => void
 }
 
-export const Grid = ({ children, id, style, onClick, as, ...props }: Props) => {
-    const {
-        p,
-        px,
-        py,
-        m,
-        mx,
-        my,
-        gap,
-        gapX,
-        gapY,
-        placeContent,
-        placeItems,
-        className,
-        justify,
-        align,
-        bg = 'white',
-        textAlign, } = props
+export const Container = ({ children, id, className, style, as, bg = 'white', onClick, ...props }: Props) => {
+    const { p, px, py, m, mx, my, rounded, textAlign } = props
     const classes = [
-        'grid',
         styles[bg],
-        justify && `justify-${justify}`,
-        align && `items-${align}`,
         p && `p-${p}`,
         px && `px-${px}`,
         py && `py-${py}`,
         m && `m-${m}`,
         mx && `mx-${mx}`,
         my && `my-${my}`,
-        gap && `gap-${gap}`,
-        gapX && `gap-x-${gapX}`,
-        gapY && `gap-y-${gapY}`,
-        placeContent && `place-content-${placeContent}`,
-        placeItems && `place-items-${placeItems}`,
+        rounded && `rounded-${rounded}`,
         textAlign && `text-${textAlign}`,
-        className,
+        className
     ].filter(Boolean).join(' ')
 
-    return createElement(as || 'div', { className: classes, id, style, onClick }, children)
+    return createElement(as || 'div', { className: classes, style, id, onClick }, children)
 }

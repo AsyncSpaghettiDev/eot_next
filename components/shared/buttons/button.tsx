@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
-import classNames from "/styles/button.module.css"
-import typography from "/styles/typography.module.css"
+import classNames from "/styles/shared/button.module.css"
+import typography from "/styles/shared/typography.module.css"
 
 interface Props {
     children: ReactNode
@@ -17,12 +17,16 @@ interface Props {
 
     font?: 'primary' | 'secondary'
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'base'
+    type?: 'button' | 'submit' | 'reset'
 
     style?: 'filled' | 'outline'
     css?: React.CSSProperties
+    className?: string
+    // onclick event for the button, with the event as parameter
+    onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Button = ({ children, css, ...props }: Props) => {
+export const Button = ({ children, className, css, onClick, type, ...props }: Props) => {
     const { m, mx, my, p, px, py, font, size, rounded, style } = props
     const classes = [
         classNames.button,
@@ -36,12 +40,11 @@ export const Button = ({ children, css, ...props }: Props) => {
         py && `py-${py}` || 'py-2',
         size && `text-${size}`,
         rounded && `rounded-${rounded}` || 'rounded-3xl',
+        className
     ].filter(Boolean).join(' ')
 
-    console.log(classes)
-
     return (
-        <button className={classes} style={css}>
+        <button type={type} className={classes} style={css} onClick={onClick}>
             {children}
         </button>
     )
