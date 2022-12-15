@@ -1,17 +1,7 @@
 .plate {
-    flex: 1;
-    border-radius: 2em;
-    box-shadow: 0 0 0.35em var(--clr-grey);
     max-width: 270px;
     min-width: 210px;
-}
-
-.plate:hover {
-    background: #ddd;
-    box-shadow:
-        0 0 0 0.25em var(--primary-200),
-        0 0 0.25em var(--clr-grey),
-        0 0 0.25em 0.5em var(--primary-800);
+    position: relative;
 }
 
 .image {

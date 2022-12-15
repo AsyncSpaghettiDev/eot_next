@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, ReactFragment, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import styles from 'styles/components/input.module.css'
 
 interface InitialValues {
@@ -9,7 +9,7 @@ interface InputProps {
     id: string
     name: string
     value: string | number | undefined
-    onChange: (e: any) => void
+    onChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 interface Props {
@@ -26,14 +26,26 @@ export const useForm = ({ initialValues, onSubmit, validate }: Props) => {
         errors && showErrors()
     }, [errors])
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { target: { name, value, valueAsNumber } } = e
-        setValues(prev => {
-            return {
-                ...prev,
-                [name]: valueAsNumber || value
-            }
-        })
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+        // destructuring the event object based on the target type
+        if (e.target instanceof HTMLInputElement) {
+            const { target: { name, value, valueAsNumber } } = e
+            setValues(prev => {
+                return {
+                    ...prev,
+                    [name]: valueAsNumber || value
+                }
+            })
+        }
+        else {
+            const { target: { name, value } } = e
+            setValues(prev => {
+                return {
+                    ...prev,
+                    [name]: value
+                }
+            })
+        }
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -48,13 +60,13 @@ export const useForm = ({ initialValues, onSubmit, validate }: Props) => {
     }
 
     const showErrors = () => {
-        const elements: HTMLInputElement[] = []
+        const elements: HTMLElement[] = []
         const errorsContainer = document.getElementById('display_errors')
         errorsContainer?.classList.remove('hidden')
         Object.keys(errors).forEach(key => {
-            const el = document.querySelector(`input#${key}`)
+            const el = document.querySelector(`#${key}`)
             if (el) {
-                elements.push(el as HTMLInputElement)
+                elements.push(el as HTMLElement)
                 el.classList.add(styles.error)
                 errorsContainer?.insertAdjacentHTML('beforeend', `<p>${errors[key]}</p>`)
             }

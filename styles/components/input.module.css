@@ -1,10 +1,24 @@
-.input {
+.input,
+.textarea,
+.select {
     border: none;
     text-align: center;
     border-radius: 0.25em;
-    padding-block: 0.45em;
+    padding-block: 0.25rem;
     transition: box-shadow 250ms ease-out;
-    /* background-color: var(--primary-200); */
+}
+
+.textarea {
+    resize: none;
+    padding-inline: 0.25rem;
+    height: 5em;
+    width: clamp(100px, 60%, 250px);
+}
+
+.select,
+.select option {
+    text-align: center;
+    text-transform: capitalize;
 }
 
 .input::placeholder {

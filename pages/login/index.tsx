@@ -54,6 +54,7 @@ const Login = () => {
                     {...getInputProps('username')}
                     label="Nombre de usuario"
                     size='2xl'
+                    input_style={{ fontSize: '1rem' }}
                     placeholder='Ingrese su usuario'
                     font='primary' />
 
@@ -61,6 +62,7 @@ const Login = () => {
                     {...getInputProps('password')}
                     label="Contraseña"
                     size='2xl'
+                    input_style={{ fontSize: '1rem' }}
                     placeholder='Ingrese su contraseña'
                     font='primary' />
 

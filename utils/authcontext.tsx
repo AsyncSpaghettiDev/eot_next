@@ -5,6 +5,7 @@ export const AuthContext = createContext<AuthenticateContext>(null!)
 import { ReactNode, useEffect, useState } from "react"
 import { AuthException } from '.'
 import { check_session, login as authenticate, logout as deauthenticate } from 'services'
+import { AuthenticateContext, User } from "types"
 
 interface Props {
     children: ReactNode

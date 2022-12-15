@@ -1,6 +1,7 @@
 import { Flex, Text, Title } from "components/shared"
-import { useState, Fragment, forwardRef, useImperativeHandle, useContext } from "react"
-import { getPlates } from "services"
+import { Hearable, Card } from "components/shared"
+import { useState, Fragment, forwardRef, useImperativeHandle } from "react"
+import { getMenu } from "services"
 
 interface PlatesProps {
     menu: ServerPlates[]
@@ -23,16 +24,18 @@ export const MenuPlates = forwardRef(({ menu, onSelectPlate, showPrices = false 
     }))
 
     // Functions
-    const fetchMenuPlates = () => getPlates().then(setMenuPlates)
+    const fetchMenuPlates = () => getMenu().then(setMenuPlates)
 
     const returnPlate = (id: number) => {
         let plateFinded
-        menuPlates.forEach(cats => {
-            cats.plates.forEach(plate => {
-                if (plate.id === id)
-                    return plateFinded = plate
+        menuPlates.forEach(cats =>
+            cats.plates.find(plate => {
+                if (plate.id === id) {
+                    plateFinded = plate
+                    return true
+                }
             })
-        })
+        )
         onSelectPlate(plateFinded)
     }
 
@@ -63,7 +66,7 @@ export const MenuPlates = forwardRef(({ menu, onSelectPlate, showPrices = false 
 })
 
 import styles from 'styles/components/plate.module.css'
-import { GlobalSettingsContext } from "utils"
+import { Plate } from "types"
 
 interface PlateProps extends Plate {
     showPrice: boolean
@@ -72,27 +75,21 @@ interface PlateProps extends Plate {
 
 // Menu plate view for menu page
 export const MenuPlate = ({ id, image, name, description, price, showPrice, onClick }: PlateProps) => {
-    const { readScreen } = useContext(GlobalSettingsContext)
     // Handlers
     const onClickHandler = async () => {
         onClick(id)
-        // text to speech
-        if (readScreen) {
-            const msg = new SpeechSynthesisUtterance()
-            msg.text = `${name}.${description} ; por ${price} pesos mexicanos`
-            window.speechSynthesis.speak(msg)
-        }
     }
 
     // Render section
     return (
-        <Flex direction="col" textAlign="center" align="center" p={2} className={styles.plate} onClick={onClickHandler}>
+        <Card textAlign="center" p={2} className={styles.plate} onClick={onClickHandler}>
             <img className={styles.image} src={image} alt={name + ' ' + description} />
             <Title order={3} transform="capitalize" weight="bold" size="lg">{name}</Title>
             <Text className={styles.description}> {description} </Text>
             {
                 showPrice && <p className="plate-price"> {`Ordenar $${price} MXN`} </p>
             }
-        </Flex>
+            <Hearable />
+        </Card>
     )
 }

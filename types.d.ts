@@ -1,3 +1,5 @@
+import { FunctionComponent, ReactElement } from "react"
+
 interface AuthenticateContext {
     user: User
     authenticated: boolean
@@ -11,6 +13,9 @@ interface SettingsContext {
     updateReadScreen: (value: boolean) => void
     updateIsLoading: (value: boolean) => void
 }
+
+type OnChangeFormEvent =
+    ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
 
 interface User {
     id?: number
@@ -33,5 +38,14 @@ interface Plate {
     description: string
     image: string
     quantity: number
+    categoryId: number
+    isVeg: boolean
     category: Category
+}
+
+interface Category {
+    id?: number
+    name: string
+    description: string
+    sortId?: number
 }

@@ -19,7 +19,7 @@ interface Props {
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'base'
     type?: 'button' | 'submit' | 'reset'
 
-    style?: 'filled' | 'outline'
+    style?: 'filled' | 'outline' | 'white' | 'outline-white'
     css?: React.CSSProperties
     className?: string
     // onclick event for the button, with the event as parameter

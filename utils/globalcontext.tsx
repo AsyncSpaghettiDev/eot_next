@@ -6,6 +6,7 @@ export const GlobalSettingsContext = createContext<SettingsContext>(null!)
 
 import { ReactNode, useState } from "react"
 import styles from 'styles/components/transition.module.css'
+import { SettingsContext } from "types"
 
 interface Props {
     children: ReactNode
@@ -42,7 +43,7 @@ export const GlobalSettings = ({ children }: Props) => {
         isLoading,
         updateIsLoading,
         readScreen,
-        updateReadScreen
+        updateReadScreen,
     }
 
     return <>
@@ -52,6 +53,7 @@ export const GlobalSettings = ({ children }: Props) => {
                 isLoading &&
                 <Transition />
             }
+            <div id="modal_root" />
         </GlobalSettingsContext.Provider>
     </>
 

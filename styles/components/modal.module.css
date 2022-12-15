@@ -1,0 +1,62 @@
+.modal {
+    position: fixed;
+    display: grid;
+    place-items: center;
+    inset: 0;
+    animation: showModalContainer 250ms ease-out forwards;
+}
+
+.body {
+    max-height: 95vh;
+    overflow-y: auto;
+    width: min(85%, 60ch);
+    padding: 1.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: var(--primary-800);
+    text-align: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: showModal 300ms ease-in-out 150ms forwards;
+}
+
+.hide.modal {
+    animation: hideModalContainer 500ms ease-out forwards;
+}
+
+.hide .body {
+    animation: hideModal 250ms ease-in-out forwards;
+}
+
+@keyframes hideModal {
+    from {
+        transform: scaleY(1);
+    }
+
+    to {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes showModal {
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes hideModalContainer {
+
+    0%,
+    50% {
+        background-color: #0008;
+    }
+
+    100% {
+        background-color: #0000;
+    }
+}
+
+@keyframes showModalContainer {
+    to {
+        background-color: #0008;
+    }
+}
