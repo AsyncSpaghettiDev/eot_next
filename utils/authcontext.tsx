@@ -40,35 +40,38 @@ export const GlobalAuth = ({ children }: Props) => {
         })
     }, [])
 
-    const login = (username: string, password: string) => {
-        authenticate(username, password).then((res) => {
+    const login = async (username: string, password: string): Promise<void> => {
+        try {
+            const res = await authenticate(username, password)
             if (res) {
                 setUser(res.user)
                 setAuthenticated(res.authenticated)
             }
-        }).catch((err) => {
-            // compare err with AuthException
-            if (err instanceof AuthException)
-                throw err
-
-            alert(err)
-        })
-    }
-
-    const logout = () => {
-        deauthenticate().then((res) => {
-            if (res) {
-                setUser(INITIAL_USER)
-                setAuthenticated(false)
-            }
-        }).catch((err) => {
+            Promise.resolve()
+        } catch (err) {
             // compare err with AuthException
             if (err instanceof AuthException)
                 throw err
 
             alert(err)
         }
-        )
+    }
+
+    const logout = async (): Promise<void> => {
+        try {
+            const res = await deauthenticate()
+            if (res) {
+                setUser(INITIAL_USER)
+                setAuthenticated(false)
+                Promise.resolve()
+            }
+        } catch (err) {
+            // compare err with AuthException
+            if (err instanceof AuthException)
+                throw err
+
+            alert(err)
+        }
     }
 
     const value = {

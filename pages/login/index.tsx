@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { AuthContext } from 'utils'
+import { AuthContext, GlobalSettingsContext } from 'utils'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
@@ -10,14 +10,17 @@ import { Form, PasswordInput, Input } from 'components/form'
 
 const Login = () => {
     const { login, authenticated } = useContext(AuthContext)
+    const { updateIsLoading } = useContext(GlobalSettingsContext)
     const { handleSubmit, getInputProps } = useForm({
         initialValues: {
             username: '',
             password: '',
         },
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             const { username, password } = values
-            login(username as string, password as string)
+            updateIsLoading(true)
+            await login(username as string, password as string)
+            updateIsLoading(false)
 
         },
         validate: (values) => {

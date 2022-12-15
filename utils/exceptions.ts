@@ -4,3 +4,10 @@ export class AuthException extends Error {
         this.name = 'AuthException'
     }
 }
+
+export class UserNotAuthenticatedException extends Error {
+    constructor() {
+        super('User not authenticated')
+        this.name = 'UserNotAuthenticatedException'
+    }
+}

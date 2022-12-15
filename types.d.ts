@@ -3,8 +3,8 @@ import { FunctionComponent, ReactElement } from "react"
 interface AuthenticateContext {
     user: User
     authenticated: boolean
-    login: (username: string, password: string) => void
-    logout: () => void
+    login: (username: string, password: string) => Promise<void>
+    logout: () => Promise<void>
 }
 
 interface SettingsContext {
@@ -12,6 +12,15 @@ interface SettingsContext {
     readScreen: boolean
     updateReadScreen: (value: boolean) => void
     updateIsLoading: (value: boolean) => void
+}
+
+type Token = {
+    authenticated: boolean
+    name: string
+    isStaff: boolean
+    tableId: number | null
+    expires: string
+    expired: boolean
 }
 
 type OnChangeFormEvent =

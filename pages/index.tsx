@@ -18,6 +18,12 @@ export default function Home() {
       updateIsLoading(true)
   }
 
+  const handleLogout = async () => {
+    updateIsLoading(true)
+    await logout()
+    updateIsLoading(false)
+  }
+
   return (
     <>
       <Grid placeItems='center' p={4} style={{ height: '95vh', overflowY: 'auto' }}>
@@ -83,7 +89,7 @@ export default function Home() {
         </Flex>
         {
           authenticated ?
-            <Text align='center' size='2xl' font='primary' className={styles.welcome_message} onClick={logout}>{`Welcome ${username} (${name}) `}</Text>
+            <Text align='center' size='2xl' font='primary' className={styles.welcome_message} onClick={handleLogout}>{`Welcome ${username} (${name}) `}</Text>
             :
             <Link className={styles.flotant} href='/login' replace={false} >
               <Image width={50} height={50} className='w-full aspect-square' src='/img/login.png' alt="eat on time login" />
