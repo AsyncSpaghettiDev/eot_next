@@ -1,3 +1,11 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    // "./node_modules/standard/eslintrc.json",
+    "standard"
+  ],
+  "rules": {
+    // no undef is not compatible with Next.js
+    "no-undef": "off"
+  }
 }
