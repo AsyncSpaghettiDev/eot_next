@@ -2,13 +2,17 @@ import Image from 'next/image'
 import { AuthContext, GlobalSettingsContext } from 'utils'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
-
+import { parse } from 'cookie'
 import { useForm } from 'hooks'
 import { Layout } from 'components/layout'
 import { Button, Text } from 'components/shared'
 import { Form, PasswordInput, Input } from 'components/form'
+import { NextPageContext } from 'next'
 
-const Login = () => {
+interface Props {
+    origin: string
+}
+const Login = ({ origin }: Props) => {
     const { login, authenticated } = useContext(AuthContext)
     const { updateIsLoading } = useContext(GlobalSettingsContext)
     const { handleSubmit, getInputProps } = useForm({
@@ -36,16 +40,13 @@ const Login = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (authenticated) {
-            const prevPath = localStorage.getItem('redirect')
-            localStorage.removeItem('redirect')
-            router.replace(prevPath || "/")
-        }
+        if (authenticated)
+            router.replace(origin)
     }, [authenticated])
 
 
     return (
-        <Layout showBack title="Login">
+        <Layout title="Login">
             <Form onSubmit={handleSubmit}>
                 <Image width={120} height={120} src="/svg/404.svg" alt="" style={{
                     width: '120px',
@@ -72,10 +73,20 @@ const Login = () => {
                 <Text color='grey' id='404_login' decoration='underline' className='hidden'>Credenciales Inválidas, prueba de nuevo</Text>
                 <Text color='grey' id='display_errors' align='center' decoration='underline' className='hidden'> </Text>
 
-                <Button px={8} style='outline' type="submit" font='primary'>Ingresar</Button>
+                <Button px={8} variant='outline' type="submit" font='primary'>Ingresar</Button>
             </Form>
         </Layout>
     )
+}
+
+export async function getServerSideProps(context: NextPageContext) {
+    const origin = parse(context.req?.headers.cookie ?? '').origin ?? '/'
+    context.res?.setHeader('set-cookie', 'origin=; path=/; max-age=0')
+    return {
+        props: {
+            origin
+        }
+    }
 }
 
 export default Login

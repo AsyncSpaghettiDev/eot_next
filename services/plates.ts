@@ -1,5 +1,3 @@
-import { Plate } from "types"
-
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localAPI_URL:8000'
 
 export const menus = {}

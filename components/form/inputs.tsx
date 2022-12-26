@@ -1,27 +1,6 @@
 import { Flex, Text } from 'components/shared'
 import { useState } from 'react'
-import styles from 'styles/components/input.module.css'
-import { OnChangeFormEvent } from 'types'
-
-interface Props {
-    label: string
-    value?: string | number
-    name: string
-    id: string
-    placeholder?: string
-    bg?: "brown" | "lightbrown" | "white"
-    color?: "black" | "white"
-    onChange: (e: OnChangeFormEvent) => void
-    dir?: "row" | "col" | "row-reverse" | "col-reverse"
-    type?: "text" | "password" | "email" | "number" | "tel" | "url"
-    step?: number
-    min?: number
-    max?: number
-    font?: "primary" | "secondary"
-    size?: "sm" | "md" | "lg" | "xl" | "2xl"
-    label_style?: React.CSSProperties
-    input_style?: React.CSSProperties
-}
+import styles from 'styles/components/input.module.scss'
 
 export const Input = ({
     label,
@@ -38,8 +17,9 @@ export const Input = ({
     color = "black",
     label_style,
     input_style,
+    readonly = false,
     ...props
-}: Props) => {
+}: InputProps) => {
     const { step, min, max } = props
     const input_classnames = `${styles.input} text-${size}`
     return (
@@ -48,6 +28,7 @@ export const Input = ({
                 <Text color={color} font={font} size={size}>{label}</Text>
             </label>
             <input
+                readOnly={readonly}
                 id={id}
                 name={name}
                 type={type}
@@ -79,7 +60,7 @@ export const PasswordInput = ({
     placeholder,
     label_style,
     input_style,
-}: Props) => {
+}: InputProps) => {
     const [showPassword, setShowPassword] = useState(false)
     const input_classnames = `${styles.input} text-${size}`
 
@@ -124,7 +105,7 @@ export const TextArea = ({
     color = "black",
     label_style,
     input_style,
-}: Props) => {
+}: InputProps) => {
     const input_classnames = `${styles.textarea} text-${size}`
     return (
         <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
@@ -144,9 +125,6 @@ export const TextArea = ({
     )
 }
 
-interface SelectProps extends Props {
-    options: { value: string | number, label: string }[]
-}
 
 export const Select = ({
     label,

@@ -12,22 +12,16 @@ export default function Home() {
   const { logout, authenticated, user: { username, role: { name } } } = useContext(AuthContext)
   const { updateIsLoading } = useContext(GlobalSettingsContext)
 
-  const navigate = (e: MouseEvent) => {
-    const { id, tagName } = e.target as HTMLDivElement
-    if (id !== 'navigate' && tagName !== 'H1')
-      updateIsLoading(true)
-  }
-
   const handleLogout = async () => {
     updateIsLoading(true)
-    await logout()
+    await logout(false)
     updateIsLoading(false)
   }
 
   return (
     <>
       <Grid placeItems='center' p={4} style={{ height: '95vh', overflowY: 'auto' }}>
-        <Flex style={{ paddingBlockEnd: '1.5em' }} id='navigate' justify='center' gap={5} align='center' wrap className='text-center' onClick={navigate}>
+        <Flex style={{ paddingBlockEnd: '1.5em' }} id='navigate' justify='center' gap={5} align='center' wrap className='text-center'>
           <Title my={2} size='4xl' weight='bold' className='w-full'>Bienvenido a EatOnTime</Title>
 
           <Link className={styles.link} href='/tables'>

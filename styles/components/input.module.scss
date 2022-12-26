@@ -6,6 +6,11 @@
     border-radius: 0.25em;
     padding-block: 0.25rem;
     transition: box-shadow 250ms ease-out;
+
+    &[readonly] {
+        background-color: var(--clr-grey);
+        color: var(--primary-200);
+    }
 }
 
 .textarea {
@@ -28,11 +33,6 @@
 .input:focus {
     outline: none;
     box-shadow: 0 0 0.125em 0.2em var(--primary-600);
-}
-
-.input[readonly] {
-    background-color: var(--clr-grey);
-    color: var(--primary-200);
 }
 
 .error {

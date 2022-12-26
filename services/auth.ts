@@ -27,7 +27,7 @@ export const login = async (username: string, password: string) => {
         }
         const token = AES.encrypt(JSON.stringify(cookie), AES_SECRET)
 
-        document.cookie = `token=${token}`
+        document.cookie = `token=${token}; Expires=${new Date(expires).toUTCString()}; path=/;`
         return { user, authenticated }
     }
     if (response.status === 404)

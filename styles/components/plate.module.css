@@ -1,6 +1,7 @@
 .plate {
     max-width: 270px;
     min-width: 210px;
+    width: clamp(210px, 30vw, 270px);
     position: relative;
 }
 
@@ -13,10 +14,7 @@
 }
 
 .description {
-    font-family: var(--ff-alter);
-    align-self: center;
-    grid-area: desc;
-    text-align: center;
+    flex: 1;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -28,32 +26,31 @@
     -webkit-line-clamp: unset;
 }
 
-.plate .price {
-    padding-block: 5px;
-    align-self: center;
-    grid-area: price;
+.price {
     position: relative;
     width: 85%;
-    text-align: center;
-    color: var(--clr-white);
-    font-family: var(--ff-alter);
+    z-index: 10;
+    justify-self: end;
+    justify-self: flex-end;
 }
 
 .plate:hover .price {
     color: var(--clr-black);
-    font-weight: var(--fw-bold);
-    font-size: var(--fs-general);
+    font-weight: 800;
 }
 
-.plate .price::after {
-    content: '';
+.price::after {
+    content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--bg-primary-800);
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid var(--primary-800);
+    background-color: var(--primary-800);
     z-index: -1;
     border-radius: 2em;
 }
 
 .plate:hover .price::after {
-    content: none;
+    background-color: #ddd;
 }

@@ -1,19 +1,22 @@
 // Styles
 import styles from 'styles/components/modal.module.css'
 
-import { MouseEvent, ReactNode, useRef } from 'react'
+import { forwardRef, MouseEvent, useImperativeHandle, useRef } from 'react'
 import { Text, Title } from 'components/shared'
 import { createPortal } from 'react-dom'
 
-interface Props {
-    title: string
-    description: string
-    onDismiss?: () => void
-    children?: ReactNode
-}
-
-export const Modal = ({ title, description, children, onDismiss }: Props) => {
+export const Modal = forwardRef(({ title, description, children, onDismiss }: ModalProps, ref) => {
     const modalRef = useRef<HTMLDivElement>(null!)
+
+    useImperativeHandle(ref, () => ({
+        dismiss: async (callback?: () => void) => {
+            modalRef.current.classList.add(styles.hide)
+            setTimeout(() => {
+                callback?.()
+                Promise.resolve()
+            }, 500)
+        }
+    }))
     // Handlers
     const dismissHandler = (e: MouseEvent<HTMLDivElement>) => {
         propagationHandler(e)
@@ -32,4 +35,6 @@ export const Modal = ({ title, description, children, onDismiss }: Props) => {
             </div>
         </div>, document.getElementById('modal_root')!
     )
-}
+})
+
+Modal.displayName = 'Modal'

@@ -1,0 +1,20 @@
+.step {
+    grid-column: 1;
+    grid-row: 1;
+    transform: scaleX(0);
+    opacity: 0;
+    height: 0;
+    transition: transform 750ms ease-out 500ms;
+
+    &.fade {
+        transform-origin: left;
+        transition: transform 750ms ease-out 500ms, opacity 600ms 600ms, height 0ms 1250ms;
+    }
+
+    &.active {
+        transform: scaleX(1);
+        opacity: 1;
+        height: max-content;
+        transform-origin: right;
+    }
+}

@@ -14,10 +14,14 @@
     flex: 1;
     border-radius: 2em;
     box-shadow: 0 0 0.35em var(--clr-grey);
+    cursor: pointer;
+}
+
+.card.hoverable:hover {
+    background: #ddd;
 }
 
 .card:hover {
-    background: #ddd;
     box-shadow:
         0 0 0 0.25em var(--primary-200),
         0 0 0.25em var(--clr-grey),

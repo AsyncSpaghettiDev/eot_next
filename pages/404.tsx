@@ -5,13 +5,14 @@ import { Button, Flex, Text, Title } from 'components/shared'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 
 const NotFound = () => {
+    const router = useRouter()
     // Hooks
     useEffect(() => {
         setTimeout(() => {
-            Router.push('/')
+            router.push('/')
         }, 5000)
     }, [])
     return (
@@ -29,10 +30,8 @@ const NotFound = () => {
                 <Text weight='light' color='grey' font='primary'>
                     La página que ingresaste no existe, prueba otra vez.
                 </Text>
-                <Button px={8} size='md' onClick={() => window.history.back()}>
-                    <Link href='/'>
-                        Volver
-                    </Link>
+                <Button px={8} size='md' onClick={() => router.push('/')}>
+                    Volver
                 </Button>
             </Flex>
         </>

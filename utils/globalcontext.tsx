@@ -6,7 +6,6 @@ export const GlobalSettingsContext = createContext<SettingsContext>(null!)
 
 import { ReactNode, useState } from "react"
 import styles from 'styles/components/transition.module.css'
-import { SettingsContext } from "types"
 
 interface Props {
     children: ReactNode
@@ -19,9 +18,17 @@ export const GlobalSettings = ({ children }: Props) => {
 
     useEffect(() => {
         setReadScreen(localStorage.getItem('readScreen') === 'true')
-        const routeChanged = () => updateIsLoading(false)
-        router.events.on('routeChangeComplete', routeChanged)
-        return () => router.events.off('routeChangeComplete', routeChanged)
+
+        const routeFChanged = () => updateIsLoading(false)
+        const routeSChanged = () => updateIsLoading(true)
+
+        router.events.on('routeChangeComplete', routeFChanged)
+        router.events.on('routeChangeStart', routeSChanged)
+
+        return () => {
+            router.events.off('routeChangeComplete', routeFChanged)
+            router.events.off('routeChangeStart', routeSChanged)
+        }
     }, [])
 
     const updateReadScreen = (value: boolean) => {
@@ -56,5 +63,4 @@ export const GlobalSettings = ({ children }: Props) => {
             <div id="modal_root" />
         </GlobalSettingsContext.Provider>
     </>
-
 }

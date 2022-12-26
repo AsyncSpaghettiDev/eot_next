@@ -9,7 +9,7 @@ interface Props {
     showBack?: boolean
 }
 
-export const Layout = ({ children, title, showUser = false, showBack = false }: Props) => {
+export const Layout = ({ children, title, showUser = false, showBack = true }: Props) => {
     // Take 1
     // let utterance = new SpeechSynthesisUtterance("Hello World");
     //Take 2

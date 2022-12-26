@@ -1,36 +1,7 @@
 import styles from "styles/shared/container.module.css"
-import { createElement, MouseEvent, ReactNode } from "react"
+import { createElement } from "react"
 
-interface Props {
-    children: ReactNode
-    justify?: "start" | "end" | "center" | "between" | "around"
-    align?: "start" | "end" | "center" | "stretch" | "baseline"
-    textAlign?: "right" | "left" | "center" | "justify"
-    bg?: 'brown' | 'lightbrown' | 'white'
-    id?: string
-
-    as?: 'div' | 'section' | 'article' | 'main' | 'aside' | 'header' | 'footer' | 'nav' | 'figure' | 'figcaption' | 'address' | 'time' | 'mark' | 'blockquote' | 'ol' | 'ul' | 'li' | 'dl' | 'dt' | 'dd' | 'table' | 'caption' | 'thead' | 'tbody' | 'tfoot' | 'tr' | 'th' | 'td' | 'hr' | 'pre' | 'code' | 'em' | 'strong' | 'small' | 's' | 'cite' | 'q' | 'dfn' | 'abbr' | 'ruby' | 'rt' | 'rp' | 'data' | 'time' | 'var' | 'samp' | 'kbd' | 'sub' | 'sup' | 'i' | 'b' | 'u' | 'span' | 'bdi' | 'bdo' | 'br' | 'wbr' | 'ins' | 'del' | 'img' | 'iframe' | 'embed' | 'object' | 'param' | 'video' | 'audio' | 'source' | 'track' | 'canvas' | 'map' | 'area' | 'svg' | 'math' | 'a' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-
-    p?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    px?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    py?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-
-    m?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-    mx?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-    my?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-
-    placeItems?: 'start' | 'end' | 'center' | 'stretch' | 'baseline'
-    placeContent?: 'start' | 'end' | 'center' | 'stretch' | 'between' | 'around' | 'evenly'
-
-    gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    gapX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    gapY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    className?: string
-    style?: React.CSSProperties
-    onClick?: (e: MouseEvent<HTMLElement>) => void
-}
-
-export const Grid = ({ children, id, style, onClick, as, ...props }: Props) => {
+export const Grid = ({ children, id, style, onClick, as, ...props }: GridProps) => {
     const {
         p,
         px,

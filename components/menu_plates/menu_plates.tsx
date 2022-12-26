@@ -9,11 +9,6 @@ interface PlatesProps {
     showPrices?: boolean
 }
 
-interface ServerPlates {
-    category: string
-    plates: Plate[]
-}
-
 export const MenuPlates = forwardRef(({ menu, onSelectPlate, showPrices = false }: PlatesProps, ref) => {
     // Hooks
     const [menuPlates, setMenuPlates] = useState<ServerPlates[]>(menu)
@@ -65,8 +60,9 @@ export const MenuPlates = forwardRef(({ menu, onSelectPlate, showPrices = false 
     )
 })
 
+MenuPlates.displayName = 'MenuPlates'
+
 import styles from 'styles/components/plate.module.css'
-import { Plate } from "types"
 
 interface PlateProps extends Plate {
     showPrice: boolean
@@ -82,12 +78,12 @@ export const MenuPlate = ({ id, image, name, description, price, showPrice, onCl
 
     // Render section
     return (
-        <Card textAlign="center" p={2} className={styles.plate} onClick={onClickHandler}>
+        <Card align="center" textAlign="center" p={2} className={styles.plate} onClick={onClickHandler}>
             <img className={styles.image} src={image} alt={name + ' ' + description} />
             <Title order={3} transform="capitalize" weight="bold" size="lg">{name}</Title>
             <Text className={styles.description}> {description} </Text>
             {
-                showPrice && <p className="plate-price"> {`Ordenar $${price} MXN`} </p>
+                showPrice && <Text p={1} color='white' className={styles.price}> {`Ordenar $${price} MXN`} </Text>
             }
             <Hearable />
         </Card>

@@ -5,14 +5,8 @@ import { MenuPlates } from "components/menu_plates"
 import { Button, Flex, Title } from "components/shared"
 import { useContext, useEffect, useRef, useState } from "react"
 import { getCategories, getMenu } from "services"
-import { Category, Plate } from "types"
 import { AuthContext } from "utils"
 import { GlobalSettingsContext } from "utils"
-
-interface ServerPlates {
-    category: string
-    plates: Plate[]
-}
 
 interface modals {
     createPlate: boolean
@@ -49,30 +43,28 @@ const Menu = ({ menu, categories }: Props) => {
     const createCategoryHandler = () => setShowForm({ ...showForm, createCategory: true })
 
     const onUpdateHandler = async (plate: Plate) => {
-        if (name !== 'admin')
-            return
-
-        if (editing) {
-            setEditPlate(plate)
-            setShowForm({ ...showForm, updatePlate: true })
-            return
-        }
         const { description, price } = plate
         // text to speech
-        if (readScreen) {
+        if (!editing && readScreen) {
             const msg = new SpeechSynthesisUtterance()
             msg.text = `${plate.name}.${description} ; por ${price} pesos mexicanos`
             window.speechSynthesis.speak(msg)
         }
+
+        if (editing && name === 'admin') {
+            setEditPlate(plate)
+            setShowForm({ ...showForm, updatePlate: true })
+            return
+        }
     }
     return (
-        <Layout title="Menú" showBack showUser>
+        <Layout title="Menú" showUser>
             <Title my={2} align="center" weight="bold" size="3xl">EatOnTime Menú {editing && '(Editando)'}</Title>
             <ProtectedContent requiredRole='admin'>
                 <Flex wrap justify="center" textAlign="center" gap={4} px={4}>
-                    <Button style="outline" onClick={createPlateHandler}>Crear Platillo</Button>
-                    <Button style="outline" onClick={createCategoryHandler}>Crear Categoria</Button>
-                    <Button style="outline" onClick={() => setEditing(prev => !prev)}>Modo Edición</Button>
+                    <Button variant="outline" onClick={createPlateHandler}>Crear Platillo</Button>
+                    <Button variant="outline" onClick={createCategoryHandler}>Crear Categoria</Button>
+                    <Button variant="outline" onClick={() => setEditing(prev => !prev)}>Modo Edición</Button>
                 </Flex>
             </ProtectedContent>
 

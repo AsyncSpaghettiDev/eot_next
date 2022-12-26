@@ -8,11 +8,10 @@ import Image from "next/image"
 const AccessibilityPage = () => {
     const { updateReadScreen, readScreen } = useContext(GlobalSettingsContext)
     const toogleHearable = () => {
+        updateReadScreen(!readScreen)
         const utterance = new SpeechSynthesisUtterance()
         utterance.text = `Escuchar sonidos al dar click ${readScreen ? 'deshabilitado' : 'habilitado'}`
         speechSynthesis.speak(utterance)
-
-        updateReadScreen(!readScreen)
     }
     return (
         <Layout>

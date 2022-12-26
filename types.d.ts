@@ -1,10 +1,8 @@
-import { FunctionComponent, ReactElement } from "react"
-
 interface AuthenticateContext {
     user: User
     authenticated: boolean
     login: (username: string, password: string) => Promise<void>
-    logout: () => Promise<void>
+    logout: (redirect?: boolean) => Promise<void>
 }
 
 interface SettingsContext {
@@ -20,7 +18,7 @@ type Token = {
     isStaff: boolean
     tableId: number | null
     expires: string
-    expired: boolean
+    cookie: string
 }
 
 type OnChangeFormEvent =
@@ -52,9 +50,66 @@ interface Plate {
     category: Category
 }
 
+interface ServerPlates {
+    category: string
+    plates: Plate[]
+}
+
 interface Category {
     id?: number
     name: string
     description: string
     sortId?: number
+}
+
+interface Table {
+    id: number
+    name: string
+    capacity: number
+    sortId: number
+    activities: Activity[]
+}
+
+interface Activity {
+    id: number
+    people: number
+    tableId: number
+    statusId: number
+
+    elapsed?: ElapsedTime
+    start: Date
+    updatedAt: Date
+    end: Date
+
+    orders: Order[]
+
+    table: Table
+    status: Status
+}
+
+interface Status {
+    id: number
+    name: string
+    description: string
+    sortId: number
+}
+
+interface ElapsedTime {
+    hours: number
+    minutes: number
+    seconds: number
+}
+
+interface Order {
+    id: number
+    quantity: number
+    subtotal: number
+    activityId: number
+    activity: Activity
+    plateId: number
+    plate: Plate
+    notes: string
+    comments: string
+    statusId: number
+    status: Status
 }

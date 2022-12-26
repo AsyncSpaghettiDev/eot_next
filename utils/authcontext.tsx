@@ -5,9 +5,10 @@ export const AuthContext = createContext<AuthenticateContext>(null!)
 import { ReactNode, useEffect, useState } from "react"
 import { AuthException } from '.'
 import { check_session, login as authenticate, logout as deauthenticate } from 'services'
-import { AuthenticateContext, User } from "types"
+import { useRouter } from "next/router"
 
 interface Props {
+    initialAuth?: any
     children: ReactNode
 }
 
@@ -22,9 +23,10 @@ const INITIAL_USER: User = {
 }
 
 
-export const GlobalAuth = ({ children }: Props) => {
+export const GlobalAuth = ({ children, initialAuth }: Props) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false)
     const [user, setUser] = useState<User>(INITIAL_USER)
+    const router = useRouter()
 
     useEffect(() => {
         check_session().then((res) => {
@@ -57,12 +59,14 @@ export const GlobalAuth = ({ children }: Props) => {
         }
     }
 
-    const logout = async (): Promise<void> => {
+    const logout = async (redirect: boolean = true): Promise<void> => {
         try {
             const res = await deauthenticate()
             if (res) {
                 setUser(INITIAL_USER)
                 setAuthenticated(false)
+                if (redirect)
+                    router.push('/')
                 Promise.resolve()
             }
         } catch (err) {

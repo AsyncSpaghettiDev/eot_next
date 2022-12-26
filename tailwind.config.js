@@ -6,7 +6,7 @@ module.exports = {
   safelist: [
     "flex-wrap",
     // pattern for p, px, py from 0 to 8
-    { pattern: /p(|x|y)-(0|1|2|3|4|5|6|7|8)/, },
+    { pattern: /p(|x|y)-(0|1|2|3|4|5|6|7|8|9|10)/, },
     // pattern for m, mx, my from 0 to 8 or auto
     { pattern: /m(|x|y)?-(0|1|2|3|4|5|6|7|8|auto)/, },
 

@@ -1,0 +1,9 @@
+.table_card {
+    max-width: 300px;
+    flex-basis: 200px;
+    transition: background-color 500ms ease-in-out;
+
+    &.available {
+        transition: background-color 0s ease-in-out;
+    }
+}

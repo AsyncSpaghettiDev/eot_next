@@ -1,9 +1,8 @@
 import { Modal } from "components/modal"
 import { Button, Flex } from "components/shared"
 import { useForm } from "hooks"
-import { useMemo } from "react"
+import { useMemo, useRef } from "react"
 import { createCategory, createPlate, deletePlate, updatePlate } from "services"
-import { Category, Plate } from "types"
 import { Input, Radio, Select, TextArea } from "../inputs"
 
 interface CreatePlateFormProps {
@@ -13,6 +12,10 @@ interface CreatePlateFormProps {
 }
 
 export const CreatePlateForm = ({ categories, onSuccess, onClose }: CreatePlateFormProps) => {
+    const modalRef = useRef<any>(null!)
+    const dismissHandler = () => modalRef.current.dismiss(onClose)
+    const sucessHandler = (newPlate: any) => modalRef.current.dismiss().then(() => onSuccess(newPlate))
+
     const { getInputProps, handleSubmit } = useForm({
         initialValues: {
             name: '',
@@ -41,14 +44,11 @@ export const CreatePlateForm = ({ categories, onSuccess, onClose }: CreatePlateF
                 errors.categoryId = 'La categoría es requerida'
             return errors
         },
-        onSubmit: async (plateInfo: any) => {
-            const newPlate = await createPlate(plateInfo)
-            onSuccess(newPlate)
-        },
+        onSubmit: async (plateInfo: any) => sucessHandler(await createPlate(plateInfo)),
     })
     const options = useMemo(() => categories.map(category => ({ value: category.id!, label: category.name })), [categories])
     return (
-        <Modal title="Crear nuevo platillo" description="Agrega un nuevo platillo a la carta" onDismiss={onClose}>
+        <Modal ref={modalRef} title="Crear nuevo platillo" description="Agrega un nuevo platillo a la carta" onDismiss={onClose}>
             <form className="p-2 flex flex-col gap-y-2" onSubmit={handleSubmit}>
                 <Input
                     {...getInputProps('name')}
@@ -110,8 +110,8 @@ export const CreatePlateForm = ({ categories, onSuccess, onClose }: CreatePlateF
                     label='¿Es vegano?' />
                 <div id="display_errors" className="hidden" style={{ color: 'var(--clr-white)' }} />
                 <Flex bg='brown' justify="center" align="center" gap={2}>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' onClick={onClose}>Cancelar</Button>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' type="submit">Añadir</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' onClick={dismissHandler}>Cancelar</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' type="submit">Añadir</Button>
                 </Flex>
             </form>
         </Modal>
@@ -126,6 +126,9 @@ interface EditPlateFormProps {
 }
 
 export const EditPlateForm = ({ plate, categories, onSuccess, onClose }: EditPlateFormProps) => {
+    const modalRef = useRef<any>(null!)
+    const dismissHandler = () => modalRef.current.dismiss(onClose)
+
     const { id, name, price, description, image, quantity, isVeg, categoryId } = plate
     const { getInputProps, handleSubmit } = useForm({
         initialValues: {
@@ -163,11 +166,14 @@ export const EditPlateForm = ({ plate, categories, onSuccess, onClose }: EditPla
     })
     const options = useMemo(() => categories.map(category => ({ value: category.id!, label: category.name })), [categories])
     const onDelete = async () => {
-        await deletePlate(id)
+        if (confirm(`${name} se eliminará permanentemente. ¿Estás seguro?`))
+            await deletePlate(id)
+
+        await modalRef.current.dismiss()
         onSuccess()
     }
     return (
-        <Modal title="Editar platillo" description="Edita la información del platillo" onDismiss={onClose}>
+        <Modal ref={modalRef} title="Editar platillo" description="Edita la información del platillo" onDismiss={onClose}>
             <form className="p-2 flex flex-col gap-y-2" onSubmit={handleSubmit}>
                 <Input
                     {...getInputProps('name')}
@@ -229,9 +235,9 @@ export const EditPlateForm = ({ plate, categories, onSuccess, onClose }: EditPla
                     label='¿Es vegano?' />
                 <div id="display_errors" className="hidden" style={{ color: 'var(--clr-white)' }} />
                 <Flex bg='brown' justify="center" align="center" gap={2}>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' onClick={onClose}>Cancelar</Button>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' onClick={onDelete} type="button">Eliminar</Button>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' type="submit">Editar</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' onClick={dismissHandler}>Cancelar</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' onClick={onDelete}>Eliminar</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' type="submit">Editar</Button>
                 </Flex>
             </form>
         </Modal>
@@ -244,6 +250,9 @@ interface CreateCategoryFormProps {
 }
 
 export const CreateCategoryForm = ({ onClose, onSuccess }: CreateCategoryFormProps) => {
+    const modalRef = useRef<any>(null!)
+    const dismissHandler = () => modalRef.current.dismiss(onClose)
+
     const { getInputProps, handleSubmit } = useForm({
         initialValues: {
             name: '',
@@ -258,6 +267,7 @@ export const CreateCategoryForm = ({ onClose, onSuccess }: CreateCategoryFormPro
         },
         onSubmit: async (categoryInfo: any) => {
             const newCategory = await createCategory(categoryInfo)
+            await modalRef.current.dismiss()
             onSuccess(newCategory)
         },
     })
@@ -286,8 +296,8 @@ export const CreateCategoryForm = ({ onClose, onSuccess }: CreateCategoryFormPro
                     label='Orden de la categoria' />
                 <div id="display_errors" className="hidden" style={{ color: 'var(--clr-white)' }} />
                 <Flex bg='brown' justify="center" align="center" gap={2}>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' onClick={onClose}>Cancelar</Button>
-                    <Button css={{ width: '10ch' }} rounded="md" style='white' type="submit">Añadir</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' onClick={dismissHandler}>Cancelar</Button>
+                    <Button style={{ width: '10ch' }} rounded="md" variant='white' type="submit">Añadir</Button>
                 </Flex>
             </form>
         </Modal>

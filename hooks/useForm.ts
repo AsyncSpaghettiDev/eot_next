@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
-import styles from 'styles/components/input.module.css'
+import styles from 'styles/components/input.module.scss'
 
 interface InitialValues {
     [key: string]: string | number | undefined
@@ -20,7 +20,7 @@ interface Props {
 
 export const useForm = ({ initialValues, onSubmit, validate }: Props) => {
     const [values, setValues] = useState(initialValues || {})
-    const [errors, setErrors] = useState<{ [key: string]: string }>({})
+    const [errors, setErrors] = useState<{ [key: string]: string } | undefined>(undefined)
 
     useEffect(() => {
         errors && showErrors()
@@ -63,12 +63,12 @@ export const useForm = ({ initialValues, onSubmit, validate }: Props) => {
         const elements: HTMLElement[] = []
         const errorsContainer = document.getElementById('display_errors')
         errorsContainer?.classList.remove('hidden')
-        Object.keys(errors).forEach(key => {
+        Object.keys(errors!).forEach(key => {
             const el = document.querySelector(`#${key}`)
             if (el) {
                 elements.push(el as HTMLElement)
                 el.classList.add(styles.error)
-                errorsContainer?.insertAdjacentHTML('beforeend', `<p>${errors[key]}</p>`)
+                errorsContainer?.insertAdjacentHTML('beforeend', `<p>${errors![key]}</p>`)
             }
         })
 

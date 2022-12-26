@@ -16,8 +16,5 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </GlobalAuth>
     </GlobalSettings>
-
-    <div id="modal_section" />
-    <div id="transition_section" />
   </>
 }

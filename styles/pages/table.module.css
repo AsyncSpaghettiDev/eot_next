@@ -1,0 +1,19 @@
+.hero {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        ". logo title"
+        ". logo order";
+    align-items: center;
+    justify-items: start;
+}
+
+.status {
+    width: 1em;
+    display: inline-block;
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+
+.status.occupied {
+    background-color: red;
+}

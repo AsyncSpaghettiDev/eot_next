@@ -1,34 +1,6 @@
-import { CSSProperties, MouseEvent, ReactNode } from "react"
 import classNames from "styles/shared/typography.module.css"
 
-interface Props {
-    children: ReactNode
-    className?: string
-    id?: string
-    font?: 'primary' | 'secondary'
-    weight?: 'light' | 'normal' | 'semibold' | 'bold'
-    color?: 'white' | 'black' | 'grey'
-
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'base'
-    p?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    px?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    py?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-    m?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-    mx?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-    my?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'auto'
-
-    decoration?: 'underline' | 'overline' | 'line-through'
-    transform?: 'uppercase' | 'lowercase' | 'capitalize'
-    breaks?: 'normal' | 'words' | 'all'
-
-    display?: 'block' | 'inline' | 'inline-block'
-    align?: 'left' | 'center' | 'right' | 'justify'
-    style?: CSSProperties
-
-    onClick?: (e: MouseEvent<HTMLElement>) => void
-}
-
-export const Text = ({ children, id, className, color = 'black', font = 'secondary', ...props }: Props) => {
+export const Text = ({ children, id, className, color = 'black', font = 'secondary', ...props }: TextProps) => {
     const { weight, size, align, style, p, px, py, m, mx, my, decoration, transform, breaks, display, onClick } = props
     const classes = [
         font && classNames[`ff-${font}`],
