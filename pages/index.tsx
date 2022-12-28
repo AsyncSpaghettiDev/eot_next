@@ -8,7 +8,7 @@ import { ProtectedContent } from 'components'
 import { Title, Flex, Text, Grid } from 'components/shared'
 import Image from 'next/image'
 
-export default function Home() {
+export default function Home () {
   const { logout, authenticated, user: { username, role: { name } } } = useContext(AuthContext)
   const { updateIsLoading } = useContext(GlobalSettingsContext)
 
@@ -82,10 +82,9 @@ export default function Home() {
           </Link>
         </Flex>
         {
-          authenticated ?
-            <Text align='center' size='2xl' font='primary' className={styles.welcome_message} onClick={handleLogout}>{`Welcome ${username} (${name}) `}</Text>
-            :
-            <Link className={styles.flotant} href='/login' replace={false} >
+          authenticated
+            ? <Text align='center' size='2xl' font='primary' className={styles.welcome_message} onClick={handleLogout}>{`Welcome ${username} (${name}) `}</Text>
+            : <Link className={styles.flotant} href='/login' replace={false} >
               <Image width={50} height={50} className='w-full aspect-square' src='/img/login.png' alt="eat on time login" />
               <Text font='secondary'>Login</Text>
             </Link>

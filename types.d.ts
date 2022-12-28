@@ -1,115 +1,117 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
 interface AuthenticateContext {
-    user: User
-    authenticated: boolean
-    login: (username: string, password: string) => Promise<void>
-    logout: (redirect?: boolean) => Promise<void>
+  user: User
+  authenticated: boolean
+  login: (username: string, password: string) => Promise<void>
+  logout: (redirect?: boolean) => Promise<void>
 }
 
 interface SettingsContext {
-    isLoading: boolean
-    readScreen: boolean
-    updateReadScreen: (value: boolean) => void
-    updateIsLoading: (value: boolean) => void
+  isLoading: boolean
+  readScreen: boolean
+  updateReadScreen: (value: boolean) => void
+  updateIsLoading: (value: boolean) => void
 }
 
 type Token = {
-    authenticated: boolean
-    name: string
-    isStaff: boolean
-    tableId: number | null
-    expires: string
-    cookie: string
+  authenticated: boolean
+  name: string
+  isStaff: boolean
+  tableId: number | null
+  expires: string
+  cookie: string
 }
 
 type OnChangeFormEvent =
-    ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
 
 interface User {
-    id?: number
-    username: string
-    role: Role
+  id?: number
+  username: string
+  role: Role
 }
 
 interface Role {
-    id?: number
-    sortId: number
-    name: string
-    description: string
-    isStaff: boolean
+  id?: number
+  sortId: number
+  name: string
+  description: string
+  isStaff: boolean
 }
 
 interface Plate {
-    id: number
-    name: string
-    price: number
-    description: string
-    image: string
-    quantity: number
-    categoryId: number
-    isVeg: boolean
-    category: Category
+  id: number
+  name: string
+  price: number
+  description: string
+  image: string
+  quantity: number
+  categoryId: number
+  isVeg: boolean
+  category: Category
 }
 
 interface ServerPlates {
-    category: string
-    plates: Plate[]
+  category: string
+  plates: Plate[]
 }
 
 interface Category {
-    id?: number
-    name: string
-    description: string
-    sortId?: number
+  id?: number
+  name: string
+  description: string
+  sortId?: number
 }
 
 interface Table {
-    id: number
-    name: string
-    capacity: number
-    sortId: number
-    activities: Activity[]
+  id: number
+  name: string
+  capacity: number
+  sortId: number
+  activities: Activity[]
 }
 
 interface Activity {
-    id: number
-    people: number
-    tableId: number
-    statusId: number
+  id: number
+  people: number
+  tableId: number
+  statusId: number
 
-    elapsed?: ElapsedTime
-    start: Date
-    updatedAt: Date
-    end: Date
+  elapsed?: ElapsedTime
+  start: Date
+  updatedAt: Date
+  end: Date
 
-    orders: Order[]
+  orders: Order[]
 
-    table: Table
-    status: Status
+  table: Table
+  status: Status
 }
 
 interface Status {
-    id: number
-    name: string
-    description: string
-    sortId: number
+  id: number
+  name: string
+  description: string
+  sortId: number
 }
 
 interface ElapsedTime {
-    hours: number
-    minutes: number
-    seconds: number
+  hours: number
+  minutes: number
+  seconds: number
 }
 
 interface Order {
-    id: number
-    quantity: number
-    subtotal: number
-    activityId: number
-    activity: Activity
-    plateId: number
-    plate: Plate
-    notes: string
-    comments: string
-    statusId: number
-    status: Status
+  id: number
+  quantity: number
+  subtotal: number
+  activityId: number
+  activity: Activity
+  plateId: number
+  plate: Plate
+  notes: string
+  comments: string
+  statusId: number
+  status: Status
 }

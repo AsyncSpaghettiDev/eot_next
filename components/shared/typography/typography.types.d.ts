@@ -1,19 +1,20 @@
+/* eslint-disable no-unused-vars */
 interface TypographyProps extends PaddingProps, MarginProps, SizeProps, BaseSharedProps, FontProps, StyleProps, ColorProps {
-    weight?: 'light' | 'normal' | 'semibold' | 'bold'
+  weight?: 'light' | 'normal' | 'semibold' | 'bold'
 
-    decoration?: 'underline' | 'overline' | 'line-through'
-    transform?: 'uppercase' | 'lowercase' | 'capitalize'
+  decoration?: 'underline' | 'overline' | 'line-through'
+  transform?: 'uppercase' | 'lowercase' | 'capitalize'
 
-    display?: 'block' | 'inline' | 'inline-block'
-    align?: 'left' | 'center' | 'right' | 'justify'
+  display?: 'block' | 'inline' | 'inline-block'
+  align?: 'left' | 'center' | 'right' | 'justify'
 
-    onClick?: (e: MouseEvent<HTMLElement>) => void
+  onClick?: (e: MouseEvent<HTMLElement>) => void
 }
 
 interface TitleProps extends TypographyProps {
-    order?: 1 | 2 | 3 | 4 | 5 | 6
+  order?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
 interface TextProps extends TypographyProps {
-    breaks?: 'normal' | 'words' | 'all'
+  breaks?: 'normal' | 'words' | 'all'
 }
