@@ -15,6 +15,7 @@ export const login = async (username: string, password: string) => {
   })
 
   const data = await response.json()
+  console.log(data)
   if (response.ok) {
     const { passport: { user }, authenticated, cookie: { expires } } = data
     const { role: { name, isStaff }, tableId } = user
