@@ -1,44 +1,13 @@
+import axios from 'axios'
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localAPI_URL:8000'
 
 export const menus = {}
 
-export const getMenu = async () => {
-  const res = await fetch(`${API_URL}/plates`)
-  const data = await res.json()
-  return data
-}
+export const getMenu = async () => (await axios.get(`${API_URL}/menu`)).data
 
-export const createPlate = async (plateInfo: Plate) => {
-  const res = await fetch(`${API_URL}/plates`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(plateInfo),
-    credentials: 'include'
-  })
-  const data = await res.json()
-  return data
-}
+export const createPlate = async (plateInfo: Plate) => (await axios.post(`${API_URL}/plates`, plateInfo, { withCredentials: true })).data
 
-export const updatePlate = async (plateInfo: Plate) => {
-  const res = await fetch(`${API_URL}/plates/${plateInfo.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(plateInfo),
-    credentials: 'include'
-  })
-  const data = await res.json()
-  return data
-}
+export const updatePlate = async (plateInfo: Plate) => (await axios.put(`${API_URL}/plates/${plateInfo.id}`, plateInfo, { withCredentials: true })).data
 
-export const deletePlate = async (id: number) => {
-  const res = await fetch(`${API_URL}/plates/${id}`, {
-    method: 'DELETE',
-    credentials: 'include'
-  })
-  const data = await res.json()
-  return data
-}
+export const deletePlate = async (id: number) => (await axios.delete(`${API_URL}/plates/${id}`, { withCredentials: true })).data
