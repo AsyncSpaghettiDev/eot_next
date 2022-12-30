@@ -1,15 +1,7 @@
 import axios, { AxiosError } from 'axios'
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
-export const getActivity = async (activityId: number, Cookie: string): Promise<Activity> => {
-  const response = await axios.get(`${API_URL}/activity/table/${activityId}`, {
-    withCredentials: true,
-    headers: {
-      Cookie
-    }
-  })
-  return response.data
-}
+export const getActivity = async (tableId: number): Promise<Activity> => (await axios.get(`${API_URL}/activity/table/${tableId}`)).data
 
 export const createActivity = async (activity: Activity) => {
   const response = await axios.post(`${API_URL}/activity`, activity, {

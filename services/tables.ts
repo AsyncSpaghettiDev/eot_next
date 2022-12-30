@@ -1,16 +1,7 @@
 import axios, { AxiosError } from 'axios'
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localAPI_URL:8000'
 
-export const getTables = async (Cookie?: string) => {
-  const res = await axios.get(`${API_URL}/tables`, {
-    withCredentials: true,
-    headers: {
-      Cookie
-    }
-  })
-  const data = await res.data
-  return data
-}
+export const getTables = async () => (await axios.get(`${API_URL}/tables`, { withCredentials: true })).data
 
 export const createTable = async (table: Table) => {
   const res = await axios.post(`${API_URL}/tables`, table, {

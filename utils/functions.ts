@@ -1,4 +1,4 @@
-export const castDate = (rawDate: string): Date => new Date(Date.parse(rawDate))
+export const castDate = (rawDate: Date): Date => new Date(rawDate)
 
 export enum DateStyle {
   // eslint-disable-next-line no-unused-vars

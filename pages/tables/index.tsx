@@ -120,7 +120,7 @@ const TableDashboard = ({ tables }: Props) => {
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
   try {
-    const { isStaff, tableId, cookie } = authorize(ctx, '/tables')
+    const { isStaff, tableId } = authorize(ctx, '/tables')
     if (!isStaff) {
       if (tableId) {
         return {
@@ -134,7 +134,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     }
 
     ctx.res?.setHeader('set-cookie', 'origin=; max-age=-1;')
-    const tables = await getTables(cookie)
+    const tables = await getTables()
 
     return {
       props: {

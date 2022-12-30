@@ -8,26 +8,22 @@ import Image from 'next/image'
 import { useStopwatch } from 'hooks'
 import { useRouter } from 'next/router'
 
-interface Props {
-  activity: Activity
-}
+interface Props extends Activity { }
 export default function TableDetail ({
-  activity: {
-    tableId,
-    status: { name },
-    id,
-    people,
-    start,
-    end,
-    elapsed,
-    orders
-  }
+  tableId,
+  status: { name },
+  id: activityId,
+  people,
+  start,
+  end,
+  elapsed,
+  orders
 }: Props) {
   const { elapsedTime } = useStopwatch(elapsed!)
   const router = useRouter()
 
   const handleOrder = () => {
-    document.cookie = `order=${JSON.stringify({ tableId, activityId: id })}; path=/; max-age=${60 * 5};`
+    document.cookie = `order=${JSON.stringify({ tableId, activityId })}; path=/; max-age=${60 * 5};`
     router.push('/order/')
   }
 
@@ -92,20 +88,19 @@ export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const { id } = context.query
     if (!id) return redirect404
-    const { isStaff, tableId, cookie } = authorize(context, '/tables')
+    const { isStaff, tableId } = authorize(context, '/tables')
 
     if (!isStaff && tableId !== parseInt(id as string)) return redirect404
 
-    const activity = await getActivity(parseInt(id as string), cookie)
-    const start = castDate(activity.start.toString())
+    const activity = await getActivity(parseInt(id as string))
+    console.log(activity.start)
+    const start = castDate(activity.start)
 
     return {
       props: {
-        activity: {
-          ...activity,
-          start: parseDate(start),
-          elapsed: getElapsedTime(start) ?? { hours: 0, minutes: 0, seconds: 0 }
-        }
+        ...activity,
+        start: parseDate(start),
+        elapsed: getElapsedTime(start) ?? { hours: 0, minutes: 0, seconds: 0 }
       }
     }
   } catch (error) {

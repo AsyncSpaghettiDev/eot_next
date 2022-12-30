@@ -28,7 +28,7 @@ export const login = async (username: string, password: string) => {
 }
 
 export const checkSession = async () => {
-  const { data, status } = await axios.get(`${API_URL}/auth/`, { withCredentials: true })
+  const { data, status } = await axios.get(`${API_URL}/auth`, { withCredentials: true })
   if (status < 400) {
     const { passport: { user }, authenticated } = data
     return { user, authenticated }

@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 
-export const useStopwatch = (elapsed: ElapsedTime) => {
-  const [seconds, setSeconds] = useState(elapsed.seconds)
-  const [minutes, setMinutes] = useState(elapsed.minutes)
-  const [hours, setHours] = useState(elapsed.hours)
+export const useStopwatch = ({ seconds: s, minutes: m, hours: h }: ElapsedTime = { seconds: 0, minutes: 0, hours: 0 }) => {
+  const [seconds, setSeconds] = useState(s)
+  const [minutes, setMinutes] = useState(m)
+  const [hours, setHours] = useState(h)
   const [isActive, setIsActive] = useState(true)
 
   let timer: ReturnType<typeof setTimeout>
   useEffect(() => {
     if (!isActive) return setSeconds(0)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     timer = setInterval(() => {
       setSeconds(seconds + 1)
 
@@ -31,5 +32,11 @@ export const useStopwatch = (elapsed: ElapsedTime) => {
 
   const elapsedTime = `Tiempo Corrido: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 
-  return { elapsedTime, stopTime }
+  const setInitial = ({ seconds, minutes, hours }: ElapsedTime) => {
+    setSeconds(seconds)
+    setMinutes(minutes)
+    setHours(hours)
+  }
+
+  return { elapsedTime, stopTime, setInitial }
 }
