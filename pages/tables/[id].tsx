@@ -2,7 +2,7 @@ import { Layout } from 'components'
 import { Button, Container, Flex, Grid, Text, Title, Table } from 'components/shared'
 import { NextPageContext } from 'next'
 import { getActivity } from 'services'
-import { authorize, castDate, getElapsedTime, parseDate, redirect404, redirectLogin } from 'utils'
+import { authorize, getElapsedTime, parseDate, redirect404, redirectLogin } from 'utils'
 import styles from 'styles/pages/table.module.css'
 import Image from 'next/image'
 import { useStopwatch } from 'hooks'
@@ -43,7 +43,7 @@ export default function TableDetail ({
             Estado: {name} <span className={`${styles[name]} ${styles.status}`} />
           </Text>
           <Text size='lg' transform='capitalize'> {people} personas</Text>
-          <Text size='lg' transform='capitalize'> {`Hora de entrada: ${start}`} </Text>
+          <Text size='lg' transform='capitalize'> {`Hora de entrada: ${parseDate(start)}`} </Text>
           <Text size='lg' transform='capitalize'> {elapsedTime} </Text>
           <Text size='lg' transform='capitalize'> {`Hora de salida: ${end ?? 'Sin Salida'}`} </Text>
         </Flex>
@@ -93,14 +93,11 @@ export const getServerSideProps = async (context: NextPageContext) => {
     if (!isStaff && tableId !== parseInt(id as string)) return redirect404
 
     const activity = await getActivity(parseInt(id as string))
-    console.log(activity.start)
-    const start = castDate(activity.start)
 
     return {
       props: {
         ...activity,
-        start: parseDate(start),
-        elapsed: getElapsedTime(start) ?? { hours: 0, minutes: 0, seconds: 0 }
+        elapsed: getElapsedTime(activity.start) ?? { hours: 0, minutes: 0, seconds: 0 }
       }
     }
   } catch (error) {

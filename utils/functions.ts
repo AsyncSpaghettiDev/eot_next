@@ -6,6 +6,7 @@ export enum DateStyle {
 }
 
 export const parseDate = (date: Date, style: DateStyle = DateStyle.time): string => {
+  if (typeof date === 'string') date = new Date(date)
   switch (style) {
     case DateStyle.time:
       return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
@@ -16,6 +17,7 @@ export const parseDate = (date: Date, style: DateStyle = DateStyle.time): string
 }
 
 export const getElapsedTime = (start: Date): ElapsedTime => {
+  if (typeof start === 'string') start = new Date(start)
   const now = new Date()
   const elapsed = now.getTime() - start.getTime()
   const seconds = Math.floor((elapsed / 1000) % 60)
