@@ -32,3 +32,10 @@ interface GridProps extends ContainerProps, GapProps, JustifyContentProps, Align
   placeItems?: 'start' | 'end' | 'center' | 'stretch' | 'baseline'
   placeContent?: 'start' | 'end' | 'center' | 'stretch' | 'between' | 'around' | 'evenly'
 }
+
+interface ImgProps {
+  classic?: boolean
+  alt: string
+  src: string
+  size: number
+}

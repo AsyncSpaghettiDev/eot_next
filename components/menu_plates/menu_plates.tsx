@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Flex, Text, Title, Hearable, Card } from 'components/shared'
 import { useState, Fragment, forwardRef, useImperativeHandle } from 'react'
 import { getMenu } from 'services'
