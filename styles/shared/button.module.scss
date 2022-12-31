@@ -48,7 +48,7 @@
 .button.white-filled {
     color: var(--primary-800);
 
-    &:hover {
+    &:hover:not(:disabled) {
         color: var(--primary-200);
         background-color: var(--primary-800);
     }

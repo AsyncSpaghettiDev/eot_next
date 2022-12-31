@@ -32,3 +32,5 @@ export const getElapsedTime = (start: Date): ElapsedTime => {
 }
 
 export const formatMoney = (amount: number): string => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+export const wait = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms))

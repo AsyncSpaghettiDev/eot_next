@@ -110,8 +110,16 @@ interface Order {
   activity: Activity
   plateId: number
   plate: Plate
-  notes: string
+  notes: Note[]
   comments: string
   statusId: number
   status: Status
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface Note {
+  id: number
+  name: string
+  description: string
 }

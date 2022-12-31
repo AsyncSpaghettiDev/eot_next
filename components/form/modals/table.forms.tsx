@@ -73,7 +73,7 @@ export const CreateTableForm = ({ onSuccess, onClose }: CreateTableFormProps) =>
 
 interface UpdateTableFormProps {
   onClose: () => void
-  onUpdate: (capacity: number) => void
+  onUpdate: ({ capacity, name }: { capacity: number, name: string }) => void
   onDelete: () => void
   table: Table
 }
@@ -81,7 +81,7 @@ interface UpdateTableFormProps {
 export const UpdateTableForm = ({ table: { id, capacity, sortId, name }, onUpdate, onClose }: UpdateTableFormProps) => {
   const modalRef = useRef<any>(null!)
   const dismissHandler = () => modalRef.current.dismiss(onClose)
-  const successHandler = (res: any) => modalRef.current.dismiss(() => onUpdate(res.capacity as number))
+  const successHandler = (res: any) => modalRef.current.dismiss(() => onUpdate({ capacity: res.capacity as number, name: res.name }))
   const onDelete = async () => {
     if (confirm(`¿Estas seguro de eliminar la mesa ${name}?`)) await deleteTable(id)
     await modalRef.current.dismiss()

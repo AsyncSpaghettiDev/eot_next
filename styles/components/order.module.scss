@@ -18,3 +18,34 @@
         transform-origin: right;
     }
 }
+
+.order_img {
+    object-fit: cover;
+    aspect-ratio: 1;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.image {
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1em;
+    width: clamp(200px, 85%, 350px);
+    box-shadow: 0 0.25em 0.75em 0.15em var(--primary-800);
+}
+
+.counter {
+    & button {
+        font-size: 18px;
+        font-weight: bold;
+        aspect-ratio: 1;
+        width: 2em;
+        padding: 0;
+
+        &:disabled {
+            color: var(--clr-grey);
+            border-color: var(--clr-grey);
+        }
+    }
+}

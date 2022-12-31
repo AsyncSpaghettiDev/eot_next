@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 interface ModalProps {
-  title: string
-  description: string
+  title?: string
+  description?: string
   onDismiss?: () => void
   children?: ReactNode
 }

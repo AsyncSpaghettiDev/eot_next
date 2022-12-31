@@ -68,7 +68,6 @@ const TableDashboard = ({ tables }: Props) => {
           onClose={() => setForms({ ...forms, create: false })}
           onSuccess={(createdTable: Table) => {
             setForms({ ...forms, create: false })
-            console.log('Created table', createdTable)
             setTablesList([...tablesList, createdTable])
           }} />
       }
@@ -77,10 +76,10 @@ const TableDashboard = ({ tables }: Props) => {
         <UpdateTableForm
           table={editTable}
           onClose={() => setForms({ ...forms, edit: false })}
-          onUpdate={(capacity: number) => {
+          onUpdate={({ capacity, name }) => {
             setForms({ ...forms, edit: false })
             setTablesList(tablesList.map(table => {
-              if (table.id === editTable.id) { return { ...table, capacity } }
+              if (table.id === editTable.id) { return { ...table, capacity, name } }
               return table
             }))
           }}
@@ -94,7 +93,6 @@ const TableDashboard = ({ tables }: Props) => {
           onClose={() => setForms({ ...forms, createActivity: false })}
           onSuccess={(createdActivity: Activity) => {
             setForms({ ...forms, createActivity: false })
-            console.log('Created activity', createdActivity)
             setTablesList(tablesList.map(table => {
               if (table.id === editTable.id) { return { ...table, activities: [createdActivity] } }
               return table

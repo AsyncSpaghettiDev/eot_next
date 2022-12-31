@@ -1,12 +1,13 @@
-import { Layout } from 'components'
+import { Layout, OrderDetail } from 'components'
 import { Button, Container, Flex, Grid, Text, Title, Table } from 'components/shared'
 import { NextPageContext } from 'next'
 import { getActivity } from 'services'
-import { authorize, getElapsedTime, parseDate, redirect404, redirectLogin } from 'utils'
+import { authorize, formatMoney, getElapsedTime, parseDate, redirect404, redirectLogin } from 'utils'
 import styles from 'styles/pages/table.module.css'
 import Image from 'next/image'
 import { useStopwatch } from 'hooks'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 
 interface Props extends Activity { }
 export default function TableDetail ({
@@ -21,6 +22,7 @@ export default function TableDetail ({
 }: Props) {
   const { elapsedTime } = useStopwatch(elapsed!)
   const router = useRouter()
+  const currentSubtotal = useMemo(() => orders?.reduce((subTotal, order) => subTotal + parseInt(order.subtotal.toString()), 0), [orders])
 
   const handleOrder = () => {
     document.cookie = `order=${JSON.stringify({ tableId, activityId })}; path=/; max-age=${60 * 5};`
@@ -38,7 +40,7 @@ export default function TableDetail ({
             Ordenar
           </Button>
         </Grid>
-        <Flex direction='col' align='center'>
+        <Flex direction='col' align='center' className='text-center'>
           <Text size='lg' transform='capitalize' className='flex items-center gap-x-2'>
             Estado: {name} <span className={`${styles[name]} ${styles.status}`} />
           </Text>
@@ -51,31 +53,13 @@ export default function TableDetail ({
           <Title align='center' order={3} size='xl' weight='bold' transform='uppercase'>Ordenes</Title>
           <Table id='orders' mx='auto' rounded='md'>
             {
-              orders.map((order, index) => (
-                <tr key={index}>
-                  <td>
-                    <img className='rounded-3xl' src={order.plate.image} alt={order.plate.name} width={70} height={70} />
-                  </td>
-                  <td>
-                    <Title order={4} size='lg' weight='bold' transform='capitalize'>
-                      {order.plate.name}
-                    </Title>
-                    <Text size='lg' transform='capitalize'>
-                      {order.plate.price} MXN
-                    </Text>
-                    <Text size='lg' transform='capitalize'>
-                      {order.quantity} {order.quantity > 1 ? 'porciones' : 'porción'}
-                    </Text>
-                  </td>
-                  <td><Button /></td>
-                </tr>
-              ))
+              orders.map(order => <OrderDetail key={order.id} order={order} />)
             }
           </Table>
         </Container>
         <Flex direction='col' align='center' gapY={2}>
           <Text size='2xl' color='black' font='primary' transform='uppercase'>
-            Subtotal <output id='subtotal'>$0</output> MXN
+            Subtotal <output id='subtotal'>${formatMoney(currentSubtotal)}</output> MXN
           </Text>
           <Button variant='outline' rounded='full' px={10} py={4} size='lg'> PEDIR CUENTA </Button>
         </Flex>

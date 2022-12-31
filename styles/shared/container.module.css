@@ -10,6 +10,12 @@
     background-color: var(--primary-200);
 }
 
+.table {
+    border-collapse: separate;
+    border-spacing: 0.5em;
+    overflow-x: auto;
+}
+
 .card {
     flex: 1;
     border-radius: 2em;

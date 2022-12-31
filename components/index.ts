@@ -15,3 +15,5 @@ export * from './tables'
 export * from './transition'
 
 export * from './place_order'
+
+export * from './order_detail'

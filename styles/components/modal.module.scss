@@ -19,12 +19,14 @@
     animation: showModal 300ms ease-in-out 150ms forwards;
 }
 
-.hide.modal {
-    animation: hideModalContainer 500ms ease-out forwards;
-}
+.hide {
+    &.modal {
+        animation: hideModalContainer 500ms ease-out forwards;
+    }
 
-.hide .body {
-    animation: hideModal 250ms ease-in-out forwards;
+    & .body {
+        animation: hideModal 250ms ease-in-out forwards;
+    }
 }
 
 @keyframes hideModal {
@@ -58,5 +60,42 @@
 @keyframes showModalContainer {
     to {
         background-color: #0008;
+    }
+}
+
+.loader {
+    height: 150px;
+    max-width: 400px;
+    align-content: flex-end;
+    justify-content: space-evenly;
+}
+
+.ball {
+    width: 35px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--primary-200);
+    animation: bounce 400ms ease-in-out alternate infinite;
+
+    &:nth-child(2) {
+        animation-delay: 100ms;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 200ms;
+    }
+
+    &:nth-child(4) {
+        animation-delay: 300ms;
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: scaleX(1.25);
+    }
+
+    to {
+        transform: translateY(-50px) scaleX(1);
     }
 }

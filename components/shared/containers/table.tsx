@@ -1,7 +1,9 @@
+import styles from 'styles/shared/container.module.css'
+
 export const Table = ({ id, children, style, rounded, headers, ...props }: TableProps) => {
   const { m, mx, my } = props
   const classes = [
-    'table',
+    styles.table,
     m && `m-${m}`,
     mx && `mx-${mx}`,
     my && `my-${my}`,
