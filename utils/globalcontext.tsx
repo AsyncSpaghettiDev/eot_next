@@ -1,4 +1,4 @@
-import { Transition } from 'components/transition'
+import { Transition, Loading } from 'components'
 import { useRouter } from 'next/router'
 import { createContext, useEffect, ReactNode, useState } from 'react'
 
@@ -12,6 +12,7 @@ interface Props {
 
 export const GlobalSettings = ({ children }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [Loader, ShowLoader] = useState<boolean>(false)
   const [readScreen, setReadScreen] = useState<boolean>(false)
   const router = useRouter()
 
@@ -46,7 +47,8 @@ export const GlobalSettings = ({ children }: Props) => {
     isLoading,
     updateIsLoading,
     readScreen,
-    updateReadScreen
+    updateReadScreen,
+    ShowLoader
   }
 
   return <>
@@ -55,6 +57,10 @@ export const GlobalSettings = ({ children }: Props) => {
       {
         isLoading &&
         <Transition />
+      }
+      {
+        Loader &&
+        <Loading />
       }
       <div id="modal_root" />
     </GlobalSettingsContext.Provider>

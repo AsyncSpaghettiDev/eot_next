@@ -11,7 +11,7 @@ export const createActivity = async (activity: Activity) => {
 }
 
 export const updateActivity = async (activityId: number) => {
-  const response = await axios.put(`${API_URL}/activity/${activityId}`, {
+  const response = await axios.put(`${API_URL}/activity/${activityId}`, {}, {
     withCredentials: true
   })
   return response.data

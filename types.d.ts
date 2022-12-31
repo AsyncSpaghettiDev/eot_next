@@ -12,6 +12,8 @@ interface SettingsContext {
   readScreen: boolean
   updateReadScreen: (value: boolean) => void
   updateIsLoading: (value: boolean) => void
+  // react set state
+  ShowLoader: Dispatch<SetStateAction<boolean>>
 }
 
 type Token = {

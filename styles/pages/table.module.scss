@@ -12,8 +12,12 @@
     display: inline-block;
     border-radius: 50%;
     aspect-ratio: 1;
-}
 
-.status.occupied {
-    background-color: red;
+    &.occupied {
+        background-color: red;
+    }
+
+    &.pending {
+        background-color: orange;
+    }
 }

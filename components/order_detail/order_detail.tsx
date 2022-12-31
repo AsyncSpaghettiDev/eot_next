@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { Loading } from 'components/modal'
 import { Button, Text, Title } from 'components/shared'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { getOrderStatus } from 'services'
 import styles from 'styles/components/order.module.scss'
+import { GlobalSettingsContext } from 'utils'
 import { OrderModal } from './order_modal'
 
 interface Props {
@@ -13,13 +13,13 @@ interface Props {
 export const OrderDetail = ({ order: { id, plate: { name, price, image }, quantity }, order }: Props) => {
   const [orderStatus, setOrderStatus] = useState<Status | undefined>(undefined)
   const [showStatus, setShowStatus] = useState(false)
-  const [showLoader, setShowLoader] = useState(false)
+  const { ShowLoader } = useContext(GlobalSettingsContext)
 
   // Handlers
   const handleClick = async () => {
-    setShowLoader(true)
+    ShowLoader(true)
     await getOrderStatus(id).then(setOrderStatus).then(_ => setShowStatus(true))
-    setShowLoader(false)
+    ShowLoader(false)
   }
 
   return (
@@ -48,11 +48,6 @@ export const OrderDetail = ({ order: { id, plate: { name, price, image }, quanti
       {
         showStatus && (
           <OrderModal order={order} status={orderStatus!} onDismiss={() => setShowStatus(false)} />
-        )
-      }
-      {
-        showLoader && (
-          <Loading />
         )
       }
     </>

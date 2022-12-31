@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { ConfirmModal, Loading } from 'components/modal'
+import { ConfirmModal } from 'components'
 import { Button, Flex, Text, Title } from 'components/shared'
 import { useCounter } from 'hooks'
 import { Step } from 'pages/order'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { createOrder } from 'services'
 import styles from 'styles/components/order.module.scss'
-import { formatMoney } from 'utils'
+import { formatMoney, GlobalSettingsContext } from 'utils'
 
 interface Props extends Plate {
   activityId: number
@@ -19,7 +19,7 @@ export const CustomizeOrder = ({ triggerStep, setOrderInfo, notes, activityId, i
   const { name, price, description, image } = plate
   const { counter, increase, decrease, greaterOne, reset } = useCounter()
   const [confirm, setConfirm] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { ShowLoader } = useContext(GlobalSettingsContext)
 
   const handleConfirm = () => {
     setConfirm(true)
@@ -49,7 +49,7 @@ export const CustomizeOrder = ({ triggerStep, setOrderInfo, notes, activityId, i
         confirm && (
           <ConfirmModal title='Confirmar orden' description={`¿Estás seguro de ordenar ${counter} ${name}?`}
             onConfirm={async () => {
-              setLoading(true)
+              ShowLoader(true)
               setConfirm(false)
               // await wait(2000)
               await createOrder({
@@ -58,17 +58,12 @@ export const CustomizeOrder = ({ triggerStep, setOrderInfo, notes, activityId, i
                 activityId,
                 plateId: id
               }).then(setOrderInfo)
-              setLoading(false)
+              ShowLoader(false)
               reset()
               triggerStep(prev => ({ ...prev, two: -1, three: 1 }))
             }}
             onDismiss={() => setConfirm(false)}
             onCancel={() => setConfirm(false)} />
-        )
-      }
-      {
-        loading && (
-          <Loading />
         )
       }
     </>
