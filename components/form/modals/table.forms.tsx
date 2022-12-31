@@ -91,6 +91,7 @@ export const UpdateTableForm = ({ table: { id, capacity, sortId, name }, onUpdat
   const { getInputProps, handleSubmit } = useForm({
     initialValues: {
       id,
+      name,
       capacity,
       sortId
     },
@@ -114,6 +115,13 @@ export const UpdateTableForm = ({ table: { id, capacity, sortId, name }, onUpdat
           type='number'
           inputStyle={{ width: '10ch' }}
           label='Id de la mesa' />
+
+        <Input
+          {...getInputProps('name')}
+          bg='brown'
+          size='md'
+          color='white'
+          label='Nombre de la mesa' />
 
         <Input
           {...getInputProps('capacity')}
