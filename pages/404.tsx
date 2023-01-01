@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Button, Flex, Text, Title } from 'components/shared'
+import { Flex, Text, Title } from 'components/shared'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ const NotFound = () => {
   useEffect(() => {
     setTimeout(() => {
       router.push('/')
-    }, 5000)
+    }, 3000)
   }, [router])
   return (
     <>
@@ -30,9 +30,6 @@ const NotFound = () => {
         <Text weight='light' color='grey' font='primary'>
           La página que ingresaste no existe, prueba otra vez.
         </Text>
-        <Button px={8} size='md' onClick={() => router.push('/')}>
-          Volver
-        </Button>
       </Flex>
     </>
   )
