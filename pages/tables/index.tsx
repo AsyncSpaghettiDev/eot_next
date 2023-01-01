@@ -1,6 +1,6 @@
 import { ProtectedContent, TableCard, AutoUpdate, Layout, CreateTableForm, ConfirmModal, CreateActivityForm, UpdateTableForm } from 'components'
 import { Button, Flex, Title } from 'components/shared'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import { useState } from 'react'
 import { deleteActivity, getTables } from 'services'
@@ -116,7 +116,7 @@ const TableDashboard = ({ tables }: Props) => {
   )
 }
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     const { isStaff, tableId } = authorize(ctx, '/tables')
     if (!isStaff) {

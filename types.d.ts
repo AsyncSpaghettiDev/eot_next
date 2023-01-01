@@ -120,6 +120,15 @@ interface Order {
   updatedAt: Date
 }
 
+interface ServerOrders {
+  ordered: Order[],
+  cooking: Order[],
+  ready: Order[],
+  served: Order[],
+  cancel_request: Order[],
+  cancel: Order[]
+}
+
 interface Note {
   id: number
   name: string

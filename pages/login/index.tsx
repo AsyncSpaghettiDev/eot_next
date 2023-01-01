@@ -7,7 +7,7 @@ import { useForm } from 'hooks'
 import { Layout } from 'components/layout'
 import { Button, Text } from 'components/shared'
 import { Form, PasswordInput, Input } from 'components/form'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 
 interface Props {
   origin: string
@@ -75,9 +75,9 @@ const Login = ({ origin }: Props) => {
   )
 }
 
-export async function getServerSideProps (context: NextPageContext) {
-  const origin = parse(context.req?.headers.cookie ?? '').origin ?? '/'
-  context.res?.setHeader('set-cookie', 'origin=; path=/; max-age=0')
+export async function getServerSideProps (context: GetServerSidePropsContext) {
+  const origin = parse(context.req.headers.cookie ?? '').origin ?? '/'
+  context.res.setHeader('set-cookie', 'origin=; path=/; max-age=0')
   return {
     props: {
       origin

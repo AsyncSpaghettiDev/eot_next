@@ -1,6 +1,6 @@
 import { ConfirmModal, Layout, OrderDetail } from 'components'
 import { Button, Container, Flex, Grid, Text, Title, Table } from 'components/shared'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { getActivity, updateActivity } from 'services'
 import { authorize, formatMoney, getElapsedTime, GlobalSettingsContext, parseDate, redirect404, redirectLogin } from 'utils'
 import styles from 'styles/pages/table.module.scss'
@@ -96,7 +96,7 @@ export default function TableDetail ({
   )
 }
 
-export const getServerSideProps = async (context: NextPageContext) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   try {
     const { id } = context.query
     if (!id) return redirect404

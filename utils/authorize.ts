@@ -1,12 +1,12 @@
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { parse } from 'cookie'
 import { AES, enc } from 'crypto-js'
 import { UserNotAuthenticatedException } from './exceptions'
 
 const AES_SECRET = process.env.NEXT_PUBLIC_AES_KEY || 'secret'
 
-export const authorize = (context: NextPageContext, origin: string): Token => {
-  context.res?.setHeader('set-cookie', `origin=${origin}; path=/; max-age=30;`)
+export const authorize = (context: GetServerSidePropsContext, origin: string): Token => {
+  context.res.setHeader('set-cookie', `origin=${origin}; path=/; max-age=30;`)
   const { req } = context
   if (!req) throw new UserNotAuthenticatedException()
   const { headers: { cookie } } = req

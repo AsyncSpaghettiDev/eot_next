@@ -9,7 +9,10 @@ interface CreateOrder {
   plateId: number
 }
 
-export const getOrders = async (): Promise<Order[]> => (await axios.get(`${API_URL}/orders`)).data
+export const getOrders = async (): Promise<ServerOrders> => {
+  const { data } = await axios.get(`${API_URL}/orders`, { withCredentials: true })
+  return data
+}
 
 export const getTableOrders = async (tableId: string): Promise<Order[]> => (await axios.get(`${API_URL}/tables/${tableId}/orders`)).data
 
@@ -25,7 +28,17 @@ export const createOrder = async (order: CreateOrder): Promise<Order> => {
   return data
 }
 
+export const updateOrderStatus = async (id: number, statusId: number): Promise<Order> => {
+  const { data } = await axios.put(`${API_URL}/orders/${id}`, { statusId }, { withCredentials: true })
+  return data
+}
+
 export const requestOrderCancellation = async (id: number): Promise<Order> => {
   const { data } = await axios.post(`${API_URL}/orders/cancel/${id}`, {}, { withCredentials: true })
+  return data
+}
+
+export const cancelOrder = async (id: number): Promise<Order> => {
+  const { data } = await axios.put(`${API_URL}/orders/cancel/${id}`, {}, { withCredentials: true })
   return data
 }

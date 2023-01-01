@@ -1,7 +1,7 @@
 import { CustomizeOrder, Layout, MenuPreview, OrderFinished } from 'components'
 import { Container, Grid, Title } from 'components/shared'
 import { parse } from 'cookie'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { useState } from 'react'
 import { authorize, redirect404 } from 'utils'
 import { getMenu, getNotes } from 'services'
@@ -59,9 +59,9 @@ export default function OrderPage ({ activityId, notes, tableId, menu }: Props) 
   )
 }
 
-export async function getServerSideProps (context: NextPageContext) {
+export async function getServerSideProps (context: GetServerSidePropsContext) {
   try {
-    const { headers: { cookie } } = context.req!
+    const { headers: { cookie } } = context.req
 
     authorize(context, 'order')
     const { tableId, activityId } = JSON.parse(parse(cookie!).order)

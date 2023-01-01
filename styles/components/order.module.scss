@@ -35,6 +35,17 @@
     box-shadow: 0 0.25em 0.75em 0.15em var(--primary-800);
 }
 
+.title {
+    flex-basis: 100%;
+    border-bottom: 2px solid var(--primary-600);
+    margin-inline: 1em;
+}
+
+.card {
+    flex: 1 1 170px;
+    max-width: 270px;
+}
+
 .counter {
     & button {
         font-size: 18px;
