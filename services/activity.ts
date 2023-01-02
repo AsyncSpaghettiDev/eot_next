@@ -3,6 +3,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 export const getActivity = async (tableId: number): Promise<Activity> => (await axios.get(`${API_URL}/activity/table/${tableId}`)).data
 
+export const getActivities = async (): Promise<Activity[]> => {
+  const { data } = await axios.get(`${API_URL}/activity/current`, { withCredentials: true })
+  return data
+}
+
 export const createActivity = async (activity: Activity) => {
   const response = await axios.post(`${API_URL}/activity`, activity, {
     withCredentials: true

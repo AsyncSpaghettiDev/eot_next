@@ -28,6 +28,7 @@ interface SizeProps {
 interface BaseSharedProps {
   children?: React.ReactNode
   className?: string
+  span?: boolean
   id?: string
 }
 
