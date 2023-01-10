@@ -9,10 +9,10 @@ export const login = async (username: string, password: string) => {
   const { data, status } = await axios.post(`${API_URL}/auth/login`, { username, password }, { withCredentials: true })
   if (status < 400) {
     const { passport: { user }, authenticated, cookie: { expires } } = data
-    const { role: { name, isStaff }, tableId } = user
+    const { role: { name: role, isStaff }, tableId } = user
     const cookie = {
       authenticated,
-      name,
+      role,
       isStaff,
       tableId,
       expires

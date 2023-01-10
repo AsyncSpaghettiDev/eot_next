@@ -11,3 +11,5 @@ export * from './activity'
 export * from './notes'
 
 export * from './orders'
+
+export * from './employees'

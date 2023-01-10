@@ -1,0 +1,87 @@
+.brown {
+    background-color: var(--primary-800);
+}
+
+.lightbrown {
+    background-color: var(--primary-600);
+}
+
+.white {
+    background-color: var(--primary-200);
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0.5em;
+    overflow-x: auto;
+    padding-inline: 1em;
+
+    thead {
+        tr {
+            position: relative;
+
+            th {
+                padding-block: 0.25em;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                inset: 0;
+                background-color: var(--primary-800);
+                border-radius: 2em;
+                overflow: hidden;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            position: relative;
+            cursor: crosshair;
+
+            td {
+                padding-block: 0.25em;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                inset: 0;
+                border-radius: 2em;
+                overflow: hidden;
+                transition: background-color 250ms ease-in-out;
+            }
+
+            &:hover {
+                &::after {
+                    background-color: var(--primary-600);
+                }
+
+                td {
+                    color: var(--primary-200);
+                }
+            }
+        }
+    }
+}
+
+.card {
+    flex: 1;
+    border-radius: 2em;
+    box-shadow: 0 0 0.35em var(--clr-grey);
+    cursor: pointer;
+
+    &:hover {
+        box-shadow:
+            0 0 0 0.25em var(--primary-200),
+            0 0 0.25em var(--clr-grey),
+            0 0 0.25em 0.5em var(--primary-800);
+    }
+
+    &.hoverable:hover {
+        background: #ddd;
+    }
+}

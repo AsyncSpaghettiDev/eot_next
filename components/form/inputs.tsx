@@ -183,11 +183,11 @@ export const Radio = ({
 }: SelectProps) => {
   const inputClassnames = `${styles.radio} text-${size} p-2`
   return (
-    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
-      <Flex bg={bg} g={2}>
+      <Flex p={1} rounded='sm' id={id} bg={bg} g={2}>
         {options.map((option, i) => (
           <Flex align='center' bg={bg} key={i} g={1}>
             <input
@@ -201,7 +201,7 @@ export const Radio = ({
               placeholder={placeholder}
               style={inputStyle}
             />
-            <label style={{ color: `var(--clr-${color})` }} htmlFor={`option-${i}`}>{option.label}</label>
+            <label className='capitalize' style={{ color: `var(--clr-${color})` }} htmlFor={`option-${i}`}>{option.label}</label>
           </Flex>
         ))}
       </Flex>

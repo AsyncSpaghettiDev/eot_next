@@ -1,4 +1,4 @@
-import styles from 'styles/shared/container.module.css'
+import styles from 'styles/shared/container.module.scss'
 import { createElement } from 'react'
 import { gapClassnames, marginClassnames, paddingClassnames } from '../classnames'
 

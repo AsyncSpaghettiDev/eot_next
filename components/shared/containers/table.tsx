@@ -1,8 +1,9 @@
-import styles from 'styles/shared/container.module.css'
+import styles from 'styles/shared/container.module.scss'
 import { marginClassnames } from '../classnames'
+import { Text } from '../typography'
 
 export const Table = ({ id, children, style, rounded, headers, ...props }: TableProps) => {
-  const { m, mx, my, mt, mb, ml, mr } = props
+  const { m, mx = 'auto', my, mt, mb, ml, mr } = props
   const classes = [
     styles.table,
     marginClassnames({ m, mx, my, mt, mb, ml, mr }),
@@ -16,7 +17,9 @@ export const Table = ({ id, children, style, rounded, headers, ...props }: Table
           <thead>
             <tr>
               {headers.map((header, index) => (
-                <th key={index}>{header}</th>
+                <th key={index}>
+                  <Text color='white' font='primary' weight='bold'>{header}</Text>
+                </th>
               ))}
             </tr>
           </thead>

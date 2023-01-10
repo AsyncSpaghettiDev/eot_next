@@ -18,7 +18,7 @@ interface SettingsContext {
 
 type Token = {
   authenticated: boolean
-  name: string
+  role: string
   isStaff: boolean
   tableId: number | null
   expires: string
@@ -133,4 +133,15 @@ interface Note {
   id: number
   name: string
   description: string
+}
+
+interface Employee {
+  id: number
+  username: string
+  password: string
+  name: string
+  lastname: string
+  phone: string
+  role: Role
+  roleId: number
 }
