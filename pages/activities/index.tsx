@@ -14,7 +14,7 @@ export default function ActivitiesPage () {
     <>
       <Layout title='Actividades' showUser>
         <Title align='center' p={2} order={3} size='2xl' weight='bold' transform='uppercase'>Actividades en curso</Title>
-        <Flex justify='center' align='center' p={4} gap={4}>
+        <Flex justify='center' align='center' p={4} g={4}>
           {
             activities?.map(activity => (
               <ActivityCard key={activity.id} activity={activity} />

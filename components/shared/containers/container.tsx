@@ -1,16 +1,14 @@
 import styles from 'styles/shared/container.module.css'
 import { createElement } from 'react'
+import { marginClassnames, paddingClassnames } from '../classnames'
 
 export const Container = ({ children, id, className, style, as, bg = 'white', onClick, ...props }: ContainerProps) => {
-  const { p, px, py, m, mx, my, rounded, textAlign } = props
+  const { p, px, py, pt, pb, pl, pr, m, mx, my, mt, mb, mr, ml } = props
+  const { rounded, textAlign } = props
   const classes = [
     styles[bg],
-    p && `p-${p}`,
-    px && `px-${px}`,
-    py && `py-${py}`,
-    m && `m-${m}`,
-    mx && `mx-${mx}`,
-    my && `my-${my}`,
+    paddingClassnames({ p, px, py, pt, pb, pl, pr }),
+    marginClassnames({ m, mx, my, mt, mb, ml, mr }),
     rounded && `rounded-${rounded}`,
     textAlign && `text-${textAlign}`,
     className

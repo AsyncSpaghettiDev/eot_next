@@ -14,7 +14,7 @@ export const Loading = forwardRef((_, ref) => {
 
   return (
     <Modal ref={modalRef}>
-      <Flex bg='brown' className={styles.loader} gapY={2} mx='auto' align='center' wrap justify='center'>
+      <Flex bg='brown' className={styles.loader} gy={2} mx='auto' align='center' wrap justify='center'>
         <span className={styles.ball} />
         <span className={styles.ball} />
         <span className={styles.ball} />

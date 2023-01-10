@@ -45,18 +45,18 @@ const TableDashboard = ({ tables }: Props) => {
   }
   return (
     <Layout title="Mesas" showUser>
-      <Flex justify="center" align="center" direction="col" gapY={1}>
+      <Flex justify="center" align="center" direction="col" gy={1}>
         <Image src="/svg/hero.svg" width={125} height={125} alt='tables dsahboard' />
         <Title size="3xl" weight="bold" align="center">Mesas {editing && '(Editando)'}</Title>
         <AutoUpdate pageName="tables" onUpdate={onUpdate} />
         <ProtectedContent adminOnly>
-          <Flex py={1} justify="center" align="center" gapX={2}>
+          <Flex py={1} justify="center" align="center" gx={2}>
             <Button size='md' variant='outline' onClick={handleCreate}>Crear mesa</Button>
             <Button size='md' variant='outline' onClick={toggleEditing}>Editar mesa</Button>
           </Flex>
         </ProtectedContent>
       </Flex>
-      <Flex p={4} gap={4} justify="center" align="stretch" wrap>
+      <Flex p={4} g={4} justify="center" align="stretch" wrap>
         {tablesList.map(table => (
           <TableCard key={table.id} table={table} onClick={handleClick} />
         ))}

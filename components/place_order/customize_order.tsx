@@ -29,14 +29,14 @@ export const CustomizeOrder = ({ triggerStep, setOrderInfo, notes, activityId, i
 
   return (
     <>
-      <Flex direction='col' justify='center' align='center' gapY={1} textAlign='center'>
+      <Flex direction='col' justify='center' align='center' gy={1} textAlign='center'>
         <img className={`${styles.image}`} src={image} alt={name} />
         <Title order={3} weight='bold' size='xl'> {name} </Title>
         <Text size='lg' weight='bold'> ${formatMoney(counter * price)} MXN </Text>
         <Text size='lg'> {description} </Text>
         <Text size='lg'> {notes.map(note => note.name).join(', ')} </Text>
 
-        <Flex align='center' gapX={1} className={styles.counter}>
+        <Flex align='center' gx={1} className={styles.counter}>
           <Button variant='outline' onClick={decrease} disabled={(!greaterOne())} >-</Button>
           <output>{counter.toString().padStart(2, '0')}</output>
           <Button variant='outline' onClick={increase}>+</Button>

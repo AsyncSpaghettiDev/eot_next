@@ -23,7 +23,7 @@ export const Input = ({
   const { step, min, max } = props
   const inputClassnames = `${styles.input} text-${size}`
   return (
-    <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
@@ -65,7 +65,7 @@ export const PasswordInput = ({
   const inputClassnames = `${styles.input} text-${size}`
 
   return (
-    <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
@@ -108,7 +108,7 @@ export const TextArea = ({
 }: InputProps) => {
   const inputClassnames = `${styles.textarea} text-${size}`
   return (
-    <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
@@ -143,7 +143,7 @@ export const Select = ({
 }: SelectProps) => {
   const inputClassnames = `${styles.select} text-${size} p-2`
   return (
-    <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
@@ -183,13 +183,13 @@ export const Radio = ({
 }: SelectProps) => {
   const inputClassnames = `${styles.radio} text-${size} p-2`
   return (
-    <Flex bg={bg} direction={dir} gap={1} justify='center' align='center'>
+    <Flex bg={bg} direction={dir} g={1} justify='center' align='center'>
       <label style={labelStyle} htmlFor={id}>
         <Text color={color} font={font} size={size}>{label}</Text>
       </label>
-      <Flex bg={bg} gap={2}>
+      <Flex bg={bg} g={2}>
         {options.map((option, i) => (
-          <Flex align='center' bg={bg} key={i} gap={1}>
+          <Flex align='center' bg={bg} key={i} g={1}>
             <input
               type='radio'
               id={`option-${i}`}

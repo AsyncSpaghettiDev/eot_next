@@ -59,7 +59,7 @@ const Menu = ({ menu, categories }: Props) => {
     <Layout title="Menú" showUser>
       <Title my={2} align="center" weight="bold" size="3xl">EatOnTime Menú {editing && '(Editando)'}</Title>
       <ProtectedContent requiredRole='admin'>
-        <Flex wrap justify="center" textAlign="center" gap={4} px={4}>
+        <Flex wrap justify="center" textAlign="center" g={4} px={4}>
           <Button variant="outline" onClick={createPlateHandler}>Crear Platillo</Button>
           <Button variant="outline" onClick={createCategoryHandler}>Crear Categoria</Button>
           <Button variant="outline" onClick={() => setEditing(prev => !prev)}>Modo Edición</Button>

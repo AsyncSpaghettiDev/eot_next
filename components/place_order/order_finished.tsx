@@ -12,7 +12,7 @@ export const OrderFinished = ({ triggerStep, ...order }: Props) => {
   const { id, plate: { name }, subtotal, quantity, createdAt } = order
   const handleBack = () => triggerStep(prev => ({ ...prev, three: -1, one: 1 }))
   return (
-    <Flex align='center' direction='col' p={4} gapY={2}>
+    <Flex align='center' direction='col' p={4} gy={2}>
       <Image width={150} height={150} className={styles.order_img} src='/svg/check.svg' alt="order completed successfully" />
       <Text size='xl'> Orden completada con éxito, a continuación se muestran los detalles de la orden </Text>
       <Text size='xl' weight='bold'> Orden No.{id} </Text>

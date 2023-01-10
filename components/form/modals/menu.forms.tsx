@@ -102,7 +102,7 @@ export const CreatePlateForm = ({ categories, onSuccess, onClose }: CreatePlateF
           ]}
           label='¿Es vegano?' />
         <div id='display_errors' className='hidden' style={{ color: 'var(--clr-white)' }} />
-        <Flex bg='brown' justify='center' align='center' gap={2}>
+        <Flex bg='brown' justify='center' align='center' g={2}>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' onClick={dismissHandler}>Cancelar</Button>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' type='submit'>Añadir</Button>
         </Flex>
@@ -218,7 +218,7 @@ export const EditPlateForm = ({ plate, categories, onSuccess, onClose }: EditPla
           ]}
           label='¿Es vegano?' />
         <div id='display_errors' className='hidden' style={{ color: 'var(--clr-white)' }} />
-        <Flex bg='brown' justify='center' align='center' gap={2}>
+        <Flex bg='brown' justify='center' align='center' g={2}>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' onClick={dismissHandler}>Cancelar</Button>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' onClick={onDelete}>Eliminar</Button>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' type='submit'>Editar</Button>
@@ -278,7 +278,7 @@ export const CreateCategoryForm = ({ onClose, onSuccess }: CreateCategoryFormPro
           inputStyle={{ width: '10ch' }}
           label='Orden de la categoria' />
         <div id='display_errors' className='hidden' style={{ color: 'var(--clr-white)' }} />
-        <Flex bg='brown' justify='center' align='center' gap={2}>
+        <Flex bg='brown' justify='center' align='center' g={2}>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' onClick={dismissHandler}>Cancelar</Button>
           <Button style={{ width: '10ch' }} rounded='md' variant='white' type='submit'>Añadir</Button>
         </Flex>

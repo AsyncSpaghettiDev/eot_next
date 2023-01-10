@@ -1,7 +1,9 @@
 import classNames from 'styles/shared/typography.module.css'
+import { marginClassnames, paddingClassnames } from '../classnames'
 
 export const Text = ({ children, span, id, className, color = 'black', font = 'secondary', ...props }: TextProps) => {
-  const { weight, size, align, style, p, px, py, m, mx, my, decoration, transform, breaks, display, onClick } = props
+  const { p, px, py, pt, pb, pl, pr, m, mx, my, mt, mb, mr, ml } = props
+  const { weight, size, align, style, decoration, transform, breaks, display, onClick } = props
   const classes = [
     font && classNames[`ff-${font}`],
     color && classNames[`color-${color}`],
@@ -9,12 +11,8 @@ export const Text = ({ children, span, id, className, color = 'black', font = 's
     weight && `font-${weight}`,
     size && `text-${size}`,
     align && `text-${align}`,
-    p && `p-${p}`,
-    px && `px-${px}`,
-    py && `py-${py}`,
-    m && `m-${m}`,
-    mx && `mx-${mx}`,
-    my && `my-${my}`,
+    paddingClassnames({ p, px, py, pt, pb, pl, pr }),
+    marginClassnames({ m, mx, my, mt, mb, ml, mr }),
     breaks && `break-${breaks}`,
     display,
     decoration,

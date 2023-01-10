@@ -38,12 +38,12 @@ export const MenuPlates = forwardRef(({ menu, onSelectPlate, showPrices = false 
 
   // Render Section
   return (
-    <Flex direction='col' my={2} gap={2}>
+    <Flex direction='col' my={2} g={2}>
       {
         menuPlates?.map(plt =>
           <Fragment key={`${plt.category}_section`}>
             <Title order={2} transform='capitalize' weight='bold' size='2xl' align='center'>{plt.category}</Title>
-            <Flex p={4} gap={4} wrap justify='center'>
+            <Flex p={4} g={4} wrap justify='center'>
               {
                 plt.plates.map(plate =>
                   <MenuPlate

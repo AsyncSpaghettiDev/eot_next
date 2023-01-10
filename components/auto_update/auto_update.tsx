@@ -33,7 +33,7 @@ export const AutoUpdate = ({ onUpdate, interval, pageName }: Props) => {
   return (
     <Flex justify='center' align='center' direction='col'>
       <Title align='center' size='xl' order={3}>{elapsedMessage}</Title>
-      <Flex justify='center' align='center' gapX={2}>
+      <Flex justify='center' align='center' gx={2}>
         <label htmlFor='autoUpdate'>
           <Text size='lg'>Actualizar automaticamente</Text>
         </label>

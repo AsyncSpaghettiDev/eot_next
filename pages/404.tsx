@@ -20,7 +20,7 @@ const NotFound = () => {
       <Head>
         <title>EatOnTime - 404</title>
       </Head>
-      <Flex as='main' justify='center' align='center' gapY={2} textAlign='center' p={4} direction='col' className='h-screen'>
+      <Flex as='main' justify='center' align='center' gy={2} textAlign='center' p={4} direction='col' className='h-screen'>
         <Link href='/'>
           <Image width={250} height={250} src='/svg/404.svg' alt="Not found page logo" />
         </Link>

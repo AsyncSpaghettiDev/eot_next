@@ -1,8 +1,10 @@
 import styles from 'styles/shared/container.module.css'
 import { createElement } from 'react'
+import { gapClassnames, marginClassnames, paddingClassnames } from '../classnames'
 
 export const Card = ({ children, id, className, style, as, bg = 'white', onClick, hoverable = true, ...props }: CardProps) => {
-  const { wrap, direction = 'col', justify, align, p = 2, px, py, m, mx, my, gap, gapX, gapY = 1, rounded, textAlign } = props
+  const { p = 2, px, py, pt, pb, pl, pr, m, mx, my, mt, mb, mr, ml } = props
+  const { wrap, direction = 'col', justify, align, g, gx, gy = 1, rounded, textAlign } = props
   const classes = [
     'flex',
     styles.card,
@@ -12,15 +14,9 @@ export const Card = ({ children, id, className, style, as, bg = 'white', onClick
     direction && `flex-${direction}`,
     justify && `justify-${justify}`,
     align && `items-${align}`,
-    p && `p-${p}`,
-    px && `px-${px}`,
-    py && `py-${py}`,
-    m && `m-${m}`,
-    mx && `mx-${mx}`,
-    my && `my-${my}`,
-    gap && `gap-${gap}`,
-    gapX && `gap-x-${gapX}`,
-    gapY && `gap-y-${gapY}`,
+    paddingClassnames({ p, px, py, pt, pb, pl, pr }),
+    marginClassnames({ m, mx, my, mt, mb, ml, mr }),
+    gapClassnames({ g, gx, gy }),
     rounded && `rounded-${rounded}`,
     textAlign && `text-${textAlign}`,
     className

@@ -38,28 +38,28 @@ export default function OrdersPage () {
       <AutoUpdate pageName="orders" onUpdate={updateOrders} />
 
       <Title className={styles.title} transform='capitalize' weight='bold' size='2xl' p={2} align='center'> Ordenes Recien Llegadas </Title>
-      <Flex textAlign='center' p={4} gap={4} wrap justify='center'>
+      <Flex textAlign='center' p={4} g={4} wrap justify='center'>
         {
           mapOrders(orders?.ordered)
         }
       </Flex>
 
       <Title className={styles.title} transform='capitalize' weight='bold' size='2xl' p={2} align='center'> Ordenes En Preparación </Title>
-      <Flex textAlign='center' p={4} gap={4} wrap justify='center'>
+      <Flex textAlign='center' p={4} g={4} wrap justify='center'>
         {
           mapOrders(orders?.cooking)
         }
       </Flex>
 
       <Title className={styles.title} transform='capitalize' weight='bold' size='2xl' p={2} align='center'> Ordenes para entregar </Title>
-      <Flex textAlign='center' p={4} gap={4} wrap justify='center'>
+      <Flex textAlign='center' p={4} g={4} wrap justify='center'>
         {
           mapOrders(orders?.ready)
         }
       </Flex>
 
       <Title style={{ backgroundColor: 'salmon' }} color='white' className={styles.title} transform='capitalize' weight='bold' size='2xl' p={2} align='center'> Ordenes para cancelar </Title>
-      <Flex textAlign='center' p={4} gap={4} wrap justify='center'>
+      <Flex textAlign='center' p={4} g={4} wrap justify='center'>
         {
           mapOrders(orders?.cancel_request)
         }

@@ -9,7 +9,7 @@ export const ConfirmModal = ({ title, description, onConfirm, onDismiss }: Confi
 
   return (
     <Modal ref={modalRef} title={title} description={description} onDismiss={onDismiss}>
-      <Flex bg='brown' align='center' justify='center' className='mt-3' gapX={2}>
+      <Flex bg='brown' align='center' justify='center' className='mt-3' gx={2}>
         <Button variant='white' style={{ width: '11ch' }} rounded='md' size='md' onClick={dismissHandler}> Cancelar </Button>
         <Button variant='white' style={{ width: '11ch' }} rounded='md' size='md' onClick={confirmHandler}> Confirmar </Button>
       </Flex>

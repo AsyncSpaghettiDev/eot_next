@@ -64,7 +64,7 @@ export default function TableDetail ({
             }
           </Table>
         </Container>
-        <Flex direction='col' align='center' gapY={2}>
+        <Flex direction='col' align='center' gy={2}>
           <Text size='2xl' color='black' font='primary' transform='uppercase'>
             Subtotal <output id='subtotal'>${formatMoney(currentSubtotal)}</output> MXN
           </Text>
