@@ -1,5 +1,7 @@
 export * from './auto_update'
 
+export * from './activity_card'
+
 export * from './form'
 
 export * from './layout'

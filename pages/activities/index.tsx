@@ -1,5 +1,4 @@
-import { Layout } from 'components'
-import { ActivityCard } from 'components/acitivity_card'
+import { Layout, ActivityCard } from 'components'
 import { Flex, Title } from 'components/shared'
 import { useEffect, useState } from 'react'
 import { getActivities } from 'services'
